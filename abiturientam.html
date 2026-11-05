@@ -1,0 +1,651 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Абитуриентам — ВКМиС им. Н. Сердюкова</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        try {
+            if (window.tailwind) {
+                window.tailwind.config = {
+                    darkMode: 'class',
+                    theme: {
+                        extend: {
+                            fontFamily: {
+                                sans: ['Manrope', 'sans-serif'],
+                                display: ['Space Grotesk', 'sans-serif'],
+                                mono: ['JetBrains Mono', 'monospace']
+                            },
+                            colors: {
+                                ink: {
+                                    50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4',
+                                    400: '#a3a3a3', 500: '#737373', 600: '#525252', 700: '#404040',
+                                    800: '#262626', 900: '#171717', 950: '#0a0a0a'
+                                },
+                                night: {
+                                    bg: '#1a1a1e', surface: '#26262b', border: '#3f3f46', hover: '#333338'
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+        } catch (e) { }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .logo-img { width: 100%; height: 100%; object-fit: contain; transition: filter 0.2s ease; }
+        .dark header .logo-img { filter: brightness(0) invert(1); }
+        footer .logo-img { filter: brightness(0) invert(1); }
+
+        /* Анимированный фон (сетка) */
+        .hero-pattern { position: relative; background-color: #ffffff; overflow: hidden; z-index: 1; }
+        .dark .hero-pattern { background-color: #1a1a1e; }
+        
+        .hero-pattern::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: linear-gradient(to right, #e5e5e5 1px, transparent 1px), linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px; animation: gridMove 10s linear infinite; z-index: -1; pointer-events: none;
+        }
+        .dark .hero-pattern::before {
+            background-image: linear-gradient(to right, #333338 1px, transparent 1px), linear-gradient(to bottom, #333338 1px, transparent 1px);
+        }
+        
+        .hero-pattern::after {
+            content: ""; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 0 100px rgba(0,0,0,0.03);
+            animation: pulseRing 6s ease-out infinite; z-index: -1; pointer-events: none;
+        }
+        .dark .hero-pattern::after { border-color: rgba(255,255,255,0.08); box-shadow: 0 0 100px rgba(255,255,255,0.03); }
+        
+        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+        @keyframes pulseRing { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
+        .hero-pattern > * { position: relative; z-index: 2; }
+
+        /* Типографика */
+        .display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
+        .display-sm { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+        .eyebrow { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.7rem; font-weight: 600; }
+
+        /* Плашки с кодами */
+        .stamp-new {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+            color: #525252; background-color: #f5f5f5; padding: 0.3rem 0.7rem; border-radius: 4px;
+            display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease;
+        }
+        .dark .stamp-new { color: #d4d4d4; background-color: #333338; }
+        .card:hover .stamp-new { background-color: #000000; color: #ffffff; }
+        .dark .card:hover .stamp-new { background-color: #ffffff; color: #000000; }
+
+        /* Карточки */
+        .card { 
+            position: relative; border: 1px solid #e5e5e5; background: #ffffff; 
+            transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .dark .card { border-color: #262626; background: #171717; }
+        .card:hover { border-color: #d4d4d4; transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
+        .dark .card:hover { border-color: #404040; box-shadow: 0 12px 20px rgba(0,0,0,0.4); }
+
+        /* Кнопка */
+        .btn-invert { 
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.06em; 
+            background: #000000; color: #ffffff; border: 1px solid #000000; 
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        .btn-invert:hover { background: #ffffff; color: #000000; transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn-invert:active { transform: translateY(0) scale(0.98); }
+        .dark .btn-invert { background: #ffffff; color: #000000; border-color: #ffffff; }
+        .dark .btn-invert:hover { background: transparent; color: #ffffff; box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15); }
+
+        /* Подвал */
+        .site-footer { position: relative; background: linear-gradient(180deg, #232329 0%, #1a1a1f 100%); color: #b9b9c0; }
+        .footer-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        .footer-text { font-family: 'JetBrains Mono', monospace; font-weight: 400; letter-spacing: -0.02em; }
+        .footer-col { padding-left: 1.25rem; border-left: 1px solid rgba(255,255,255,0.1); }
+
+        /* Слайдер */
+        .slider-track img {
+            image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; 
+            backface-visibility: hidden; transform: translateZ(0);
+            transform: scale(1); transition: transform 6s ease-in-out;
+        }
+        .slider-track > div.active img { transform: scale(1.15); }
+        .slider-track > div { overflow: hidden; position: relative; }
+
+        #sliderTrack h3 {
+            font-family: 'Space Grotesk', sans-serif !important; font-weight: 700 !important;
+            text-transform: uppercase !important; letter-spacing: 0.05em !important; 
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; line-height: 1.1 !important;
+            font-size: 2.5rem !important;
+        }
+        @media (max-width: 768px) { #sliderTrack h3 { font-size: 1.8rem !important; } }
+        #sliderTrack h3::after { content: ''; display: block; width: 60px; height: 4px; background: #2563eb; margin-top: 12px; }
+    body { overflow-x: hidden !important; }</style>
+</head>
+<body class="font-sans text-ink-900 dark:text-white antialiased min-h-screen flex flex-col selection:bg-black selection:text-white dark:selection:bg-white dark:bg-night-bg dark:selection:text-black transition-colors duration-200">
+
+    <!-- Шапка -->
+        <!-- Шапка -->
+    <header class="bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border sticky top-0 z-50 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+            
+                        <!-- Логотип -->
+            <a href="index.html" class="flex items-center gap-2 sm:gap-3 group shrink-0 z-50">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
+                    <img src="logo.png" alt="Логотип ВКМиС" class="logo-img">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-ink-900 dark:text-white text-base sm:text-lg leading-tight tracking-tight">ВКМиС</span>
+                    <span class="text-[9px] sm:text-[10px] text-ink-500 dark:text-ink-400 uppercase tracking-[0.08em] sm:tracking-[0.15em] font-semibold leading-tight max-w-[180px] sm:max-w-none">Колледж машиностроения и связи имени Н. Сердюкова</span>
+                </div>
+            </a>
+
+            <!-- Меню для ПК -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Главная</a>
+                <a href="abiturientam.html" class="font-display font-bold text-sm text-ink-900 dark:text-white hover:text-blue-600 transition-colors">Абитуриентам</a>
+                <!-- Выпадающее меню Студентам -->
+                <div class="relative group">
+                    <a href="studentam.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors flex items-center gap-1">
+                        Студентам <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-night-surface border border-ink-200 dark:border-night-border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-md overflow-hidden">
+                        <a href="studentam.html#raspisanie" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Расписание занятий</a>
+                        <a href="studentam.html#otpusk" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Академический отпуск</a>
+                        <a href="studentam.html#perevod" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Переход на бюджет</a>
+                        <a href="studentam.html#sreda" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Электронная среда</a>
+                        <a href="studentam.html#gia" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">ГИА</a>
+                        <a href="studentam.html#demoekzamen" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Демоэкзамен</a>
+                    </div>
+                </div>
+                <a href="o-kolledzhe.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">О колледже</a>
+                <a href="sveden.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Сведения</a>
+            </nav>
+
+            <!-- Кнопки справа (Тема + Бургер) -->
+            <div class="flex items-center gap-2 z-50">
+                <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-10 h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                    <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-10 h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+                <!-- Мобильное меню (выезжает сверху) -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border shadow-xl z-40 max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1 flex flex-col">
+                <a href="index.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Главная</a>
+                <a href="abiturientam.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Абитуриентам</a>
+                
+                <!-- Аккордеон Студентам -->
+                <div class="w-full">
+                    <button id="mobileStudentsBtn" type="button" class="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded text-left">
+                        Студентам <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="mobileStudentsIcon"></i>
+                    </button>
+                    <div id="mobileStudentsMenu" class="hidden pl-4 space-y-1 mt-1">
+                        <a href="studentam.html#raspisanie" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Расписание занятий</a>
+                        <a href="studentam.html#otpusk" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Академический отпуск</a>
+                        <a href="studentam.html#perevod" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Переход на бюджет</a>
+                        <a href="studentam.html#sreda" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Электронная среда</a>
+                        <a href="studentam.html#gia" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">ГИА</a>
+                        <a href="studentam.html#demoekzamen" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Демоэкзамен</a>
+                    </div>
+                </div>
+
+                <a href="o-kolledzhe.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">О колледже</a>
+                <a href="sveden.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Сведения об образовательной организации</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный контент -->
+    <main class="flex-grow">
+        <!-- Hero секция -->
+        <section class="hero-pattern w-full py-20 lg:py-32 border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <span class="inline-flex items-center gap-2.5 px-4 py-2 border-2 border-ink-900 dark:border-ink-100 text-ink-900 dark:text-ink-100 mb-8 bg-white/90 dark:bg-night-surface/90 backdrop-blur-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+    <i class="fa-solid fa-arrow-trend-up text-sm"></i> 
+    <span class="font-display font-bold uppercase tracking-widest text-xs">Поступление 2026/2027</span>
+</span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl display text-ink-950 dark:text-white mb-8">
+                    Стань частью<br><span class="underline decoration-2 underline-offset-[12px]">ВКМиС</span>
+                </h1>
+                <p class="text-lg sm:text-xl font-medium text-ink-700 dark:text-ink-300 max-w-2xl mx-auto leading-relaxed mb-6">
+                    Волгоградский колледж машиностроения и связи имени Н. Сердюкова готовит специалистов,
+                    которых ждут на производстве уже на третьем курсе. Здесь не читают теорию ради теории —
+                    здесь учат работать руками, головой и на реальном оборудовании.
+                </p>
+                <p class="text-base font-normal text-ink-500 dark:text-ink-400 max-w-xl mx-auto leading-relaxed">
+                    Более 15 направлений подготовки, современные мастерские, партнёрские предприятия
+                    и практика, которая превращается в первую запись в трудовой книжке.
+                </p>
+            </div>
+        </section>
+
+        
+
+        <!-- Цифры -->
+        <section class="py-12 bg-white dark:bg-night-surface border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink-200 dark:bg-night-border">
+    <div class="bg-white dark:bg-night-surface p-6 text-center">
+        <p class="text-4xl display text-ink-950 dark:text-white">15+</p>
+        <p class="eyebrow text-ink-500 dark:text-ink-400 mt-2">Направлений</p>
+    </div>
+    <div class="bg-white dark:bg-night-surface p-6 text-center">
+        <p class="text-4xl display text-ink-950 dark:text-white">80+</p>
+        <p class="eyebrow text-ink-500 dark:text-ink-400 mt-2">Лет истории</p>
+    </div>
+    <div class="bg-white dark:bg-night-surface p-6 text-center">
+        <p class="text-4xl display text-ink-950 dark:text-white">90%</p>
+        <p class="eyebrow text-ink-500 dark:text-ink-400 mt-2">Трудоустройство</p>
+    </div>
+    <div class="bg-white dark:bg-night-surface p-6 text-center">
+        <p class="text-4xl display text-ink-950 dark:text-white">20+</p>
+        <p class="eyebrow text-ink-500 dark:text-ink-400 mt-2">Партнёров</p>
+    </div>
+</div>
+</section>
+
+               <!-- Блок 1: Профессии (9 классов) -->
+        <section class="py-20 bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
+                    <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">01 — Профессии</p>
+                    <h2 class="text-3xl display-sm text-ink-950 dark:text-white mb-4">На базе 9 классов</h2>
+                    <p class="text-base font-normal text-ink-600 dark:text-ink-400 leading-relaxed">
+                        Программы подготовки квалифицированных рабочих и служащих. Срок обучения зависит от выбранного направления.
+                    </p>
+                </div>
+                <!-- Добавили auto-rows-fr для ровных рядов и bg для заполнения пустот -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink-200 dark:bg-night-border auto-rows-fr">
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>09.01.03</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Оператор информационных систем и ресурсов</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Работа с базами данных и цифровыми сервисами. Ввод, обработка и хранение информации.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.01.05</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Сварщик (ручной и частично механизированной сварки (наплавки)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Ручная и механизированная сварка. Одна из самых востребованных рабочих профессий на рынке.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>08.01.30</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Электромонтажник слаботочных систем</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Монтаж и обслуживание систем связи и безопасности. Работа с видеонаблюдением.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.01.38</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Оператор-наладчик металлообрабатывающих станков</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Настройка и работа на станках с ЧПУ. Программирование обработки и чтение чертежей.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>18.01.34</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Лаборант по контролю качества сырья, реактивов, промежуточных продуктов, готовой продукции, отходов производства (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Контроль сырья и готовой продукции. Работа в химической лаборатории.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>11.02.05</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Инфокоммуникационные сети и системы (на базе основного общего образования)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Настройка и обслуживание сетей связи. Монтаж и диагностика оборудования.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>11.02.05</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Инфокоммуникационные сети и системы (на базе среднего общего образования)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Проектирование и поддержка корпоративных сетей, работа с маршрутизаторами.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>11.02.12</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Почтовая связь</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Организация почтовых услуг и логистика. Работа с отправлениями и документооборот.</p>
+                    </div>
+
+                    
+                
+                
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок 2: Специальности (9 классов) -->
+        <section class="py-20 bg-ink-50 dark:bg-night-surface border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
+                    <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">02 — Специальности</p>
+                    <h2 class="text-3xl display-sm text-ink-950 dark:text-white mb-4">На базе 9 классов</h2>
+                    <p class="text-base font-normal text-ink-600 dark:text-ink-400 leading-relaxed">
+                        Программы подготовки специалистов среднего звена. Срок обучения — 3 года 10 месяцев.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink-200 dark:bg-night-border auto-rows-fr">
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>13.02.11</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Техническая эксплуатация и обслуживание электрического и электромеханического оборудования (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Работа с промышленным оборудованием. Обслуживание и ремонт электрических машин.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>13.02.13</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Эксплуатация и обслуживание электрического и электромеханического оборудования (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Наладка и ремонт электрических машин и электроприводов на предприятии.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.02.16</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Технология машиностроения</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Проектирование и производство деталей. Работа с CAD-системами.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.02.09</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Аддитивные технологии</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">3D-печать и моделирование. Работа с современным оборудованием для послойного синтеза.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.02.19</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Сварочное производство</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Технологии сварки и контроль качества. Разработка технологического процесса.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>22.02.06</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Сварочное производство</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Подбор режимов сварки и оценка сварных соединений на производстве.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.02.12</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Монтаж, техническое обслуживание и ремонт промышленного оборудования (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Диагностика неисправностей, проведение регламентных работ и восстановление узлов.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>15.02.17</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Монтаж, техническое обслуживание, эксплуатация и ремонт промышленного оборудования (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Обслуживание станков и работа с технической документацией предприятия.</p>
+                    </div>
+
+                    
+                
+                
+                         
+                </div>
+            </div>
+        </section>
+
+        <!-- Блок 3: Специальности (11 классов, внебюджет) -->
+        <section class="py-20 bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
+                    <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">03 — Специальности</p>
+                    <h2 class="text-3xl display-sm text-ink-950 dark:text-white mb-4">На базе 11 классов (внебюджет)</h2>
+                    <p class="text-base font-normal text-ink-600 dark:text-ink-400 leading-relaxed">
+                        Сокращённый срок обучения — 2 года 10 месяцев. Для выпускников 11 классов.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink-200 dark:bg-night-border auto-rows-fr">
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>09.01.04</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Наладчик аппаратных и программных средств инфокоммуникационных систем</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Настройка оборудования и ПО. Диагностика сбоев и работа с периферией.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>11.02.05</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Инфокоммуникационные сети и системы (на базе среднего общего образования)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Сети связи и телекоммуникации. Поддержка корпоративных сетей.</p>
+                    </div>
+                    
+                    <div class="card p-7">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>18.02.12</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Технология аналитического контроля химических соединений</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Химический анализ и контроль. Работа с лабораторным оборудованием.</p>
+                    </div>
+                    
+                    <div class="card p-7 md:col-span-2 lg:col-span-3">
+                        <div class="stamp-new"><i class="fa-solid fa-code text-[10px] opacity-50"></i>18.01.34</div>
+                        <h3 class="text-lg font-display font-semibold text-ink-950 dark:text-white mt-5 mb-3 leading-snug">Лаборант по контролю качества сырья, реактивов, промежуточных продуктов, готовой продукции, отходов производства (по отраслям)</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Контроль качества сырья и продукции. Отбор проб, проведение стандартных анализов.</p>
+                    </div>
+                    
+                
+                
+                </div>
+            </div>
+        </section>
+
+        <!-- Как поступить -->
+        <section class="py-20 bg-ink-50 dark:bg-night-surface border-b border-ink-200 dark:border-night-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
+                    <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">04 — Как поступить</p>
+                    <h2 class="text-3xl display-sm text-ink-950 dark:text-white mb-4">Четыре шага</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink-200 dark:bg-night-border">
+                    <div class="bg-white dark:bg-night-surface p-8">
+                        <div class="stamp-new w-fit"><i class="fa-solid fa-list-ol text-[10px] opacity-50"></i>01</div>
+                        <h3 class="text-base font-display font-semibold text-ink-950 dark:text-white mt-4 mb-2">Заполните форму</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Онлайн-заявка на портале «Поступи онлайн».</p>
+                    </div>
+                    <div class="bg-white dark:bg-night-surface p-8">
+                        <div class="stamp-new w-fit"><i class="fa-solid fa-list-ol text-[10px] opacity-50"></i>02</div>
+                        <h3 class="text-base font-display font-semibold text-ink-950 dark:text-white mt-4 mb-2">Дождитесь ответа</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Приёмная комиссия свяжется с вами.</p>
+                    </div>
+                    <div class="bg-white dark:bg-night-surface p-8">
+                        <div class="stamp-new w-fit"><i class="fa-solid fa-list-ol text-[10px] opacity-50"></i>03</div>
+                        <h3 class="text-base font-display font-semibold text-ink-950 dark:text-white mt-4 mb-2">Принесите документы</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">Аттестат, паспорт, фотографии и медсправка.</p>
+                    </div>
+                    <div class="bg-white dark:bg-night-surface p-8">
+                        <div class="stamp-new w-fit"><i class="fa-solid fa-list-ol text-[10px] opacity-50"></i>04</div>
+                        <h3 class="text-base font-display font-semibold text-ink-950 dark:text-white mt-4 mb-2">Зачислитесь</h3>
+                        <p class="text-sm font-normal text-ink-500 dark:text-ink-400 leading-relaxed">После зачисления вы получите студенческий.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопка подачи документов -->
+        <section class="py-24 hero-pattern border-b border-ink-200 dark:border-night-border text-center">
+            <div class="max-w-3xl mx-auto px-4">
+                <p class="eyebrow text-ink-500 dark:text-ink-400 mb-4">05 — Приём документов</p>
+                <h2 class="text-4xl sm:text-5xl display text-ink-950 dark:text-white mb-4">Готовы начать?</h2>
+                <a href="https://postupi.online" target="_blank" rel="noopener noreferrer" class="btn-invert inline-flex items-center gap-3 px-8 py-4 text-sm uppercase mt-6">
+                    <i class="fa-solid fa-pen-to-square text-xs"></i>
+                    Подать документы
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="site-footer py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <div class="footer-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 flex-shrink-0">
+                            <img src="logo.png" alt="Логотип ВКМиС" class="logo-img">
+                        </div>
+                        <span class="footer-title text-white text-lg tracking-tight">ВКМиС</span>
+                    </div>
+                    <p class="footer-text text-sm leading-relaxed text-white/70">
+                        Здесь учатся на инженеров, связистов, сварщиков и лаборантов.
+                        Не на словах — в мастерских, на станках и на реальных проектах
+                        с предприятий Волгограда.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <p class="eyebrow text-white/60 mb-4">Контакты</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-location-dot w-5 text-white/40"></i> г. Волгоград, ул. Даугавская, 7а / 64-й Армии, 117</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-envelope w-5 text-white/40"></i> olymp@vkmis.ru</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-phone w-5 text-white/40"></i> +7 (8442) 32-69-39</p>
+                </div>
+                <div class="footer-col">
+                    <p class="eyebrow text-white/60 mb-4">Навигация</p>
+                    <ul class="space-y-2 text-sm footer-text text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">Главная</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Специальности</a></li>
+                        <li><a href="https://postupi.online" target="_blank" class="hover:text-white transition-colors">Подать документы</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-white/40">
+                    &copy; 2026 ВКМиС им. Н. Сердюкова
+                </p>
+                <p class="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-white/30">
+                    Волгоград · с 1940 года
+                </p>
+            </div>
+        </div>
+    </footer>
+
+        <script>
+        // --- ТЕМНАЯ ТЕМА ---
+        (function () {
+            var root = document.documentElement;
+            var STORAGE_KEY = 'vkmis-theme';
+            function getIcon() { return document.getElementById('themeIcon'); }
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    root.classList.add('dark');
+                    var icon = getIcon();
+                    if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
+                } else {
+                    root.classList.remove('dark');
+                    var icon2 = getIcon();
+                    if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
+                }
+            }
+            function toggleTheme() {
+                var next = root.classList.contains('dark') ? 'light' : 'dark';
+                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+                applyTheme(next);
+            }
+            var saved = 'light';
+            try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
+            applyTheme(saved);
+            var btn = document.getElementById('themeToggle');
+            if (btn) btn.addEventListener('click', toggleTheme);
+        })();
+
+        // --- БУРГЕР МЕНЮ ---
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileMenu.classList.toggle('hidden');
+                    var icon = mobileMenuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    }
+                });
+            }
+        });
+            // --- АККОРДЕОН В МОБИЛЬНОМ МЕНЮ ---
+        document.addEventListener('DOMContentLoaded', function() {
+            var studentsBtn = document.getElementById('mobileStudentsBtn');
+            var studentsMenu = document.getElementById('mobileStudentsMenu');
+            var studentsIcon = document.getElementById('mobileStudentsIcon');
+            
+            if (studentsBtn && studentsMenu) {
+                studentsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    studentsMenu.classList.toggle('hidden');
+                    if (studentsMenu.classList.contains('hidden')) {
+                        studentsIcon.style.transform = 'rotate(0deg)';
+                    } else {
+                        studentsIcon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            }
+        });
+</script>
+        
+            // --- СЧЕТЧИКИ (ЗАПУСКАЮТСЯ СРАЗУ) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200;
+
+    counters.forEach(counter => {
+        const target = +counter.getAttribute('data-target');
+        let count = 0;
+        const inc = target / speed;
+
+        const updateCount = () => {
+            count += inc;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                setTimeout(updateCount, 20);
+            } else {
+                if (counter.getAttribute('data-target') == '90') { 
+                    counter.innerText = target + '%'; 
+                } else { 
+                    counter.innerText = target + '+'; 
+                }
+            }
+        };
+        updateCount();
+    });
+});
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,443 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Организация питания — ВКМиС им. Н. Сердюкова</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        try {
+            if (window.tailwind) {
+                window.tailwind.config = {
+                    darkMode: 'class',
+                    theme: {
+                        extend: {
+                            fontFamily: {
+                                sans: ['Manrope', 'sans-serif'],
+                                display: ['Space Grotesk', 'sans-serif'],
+                                mono: ['JetBrains Mono', 'monospace']
+                            },
+                            colors: {
+                                ink: {
+                                    50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4',
+                                    400: '#a3a3a3', 500: '#737373', 600: '#525252', 700: '#404040',
+                                    800: '#262626', 900: '#171717', 950: '#0a0a0a'
+                                },
+                                night: {
+                                    bg: '#1a1a1e', surface: '#26262b', border: '#3f3f46', hover: '#333338'
+                                }
+                            }
+                        }
+                    }
+                };
+            }
+        } catch (e) { }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .logo-img { width: 100%; height: 100%; object-fit: contain; transition: filter 0.2s ease; }
+        .dark header .logo-img { filter: brightness(0) invert(1); }
+        footer .logo-img { filter: brightness(0) invert(1); }
+
+        /* Анимированный фон (сетка) */
+        .hero-pattern { position: relative; background-color: #ffffff; overflow: hidden; z-index: 1; }
+        .dark .hero-pattern { background-color: #1a1a1e; }
+        
+        .hero-pattern::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: linear-gradient(to right, #e5e5e5 1px, transparent 1px), linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px; animation: gridMove 10s linear infinite; z-index: -1; pointer-events: none;
+        }
+        .dark .hero-pattern::before {
+            background-image: linear-gradient(to right, #333338 1px, transparent 1px), linear-gradient(to bottom, #333338 1px, transparent 1px);
+        }
+        
+        .hero-pattern::after {
+            content: ""; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 0 100px rgba(0,0,0,0.03);
+            animation: pulseRing 6s ease-out infinite; z-index: -1; pointer-events: none;
+        }
+        .dark .hero-pattern::after { border-color: rgba(255,255,255,0.08); box-shadow: 0 0 100px rgba(255,255,255,0.03); }
+        
+        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+        @keyframes pulseRing { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
+        .hero-pattern > * { position: relative; z-index: 2; }
+
+        /* Типографика */
+        .display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
+        .display-sm { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+        .eyebrow { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.7rem; font-weight: 600; }
+
+        /* Плашки с кодами */
+        .stamp-new {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+            color: #525252; background-color: #f5f5f5; padding: 0.3rem 0.7rem; border-radius: 4px;
+            display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease;
+        }
+        .dark .stamp-new { color: #d4d4d4; background-color: #333338; }
+        .card:hover .stamp-new { background-color: #000000; color: #ffffff; }
+        .dark .card:hover .stamp-new { background-color: #ffffff; color: #000000; }
+
+        /* Карточки */
+        .card { 
+            position: relative; border: 1px solid #e5e5e5; background: #ffffff; 
+            transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .dark .card { border-color: #262626; background: #171717; }
+        .card:hover { border-color: #d4d4d4; transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
+        .dark .card:hover { border-color: #404040; box-shadow: 0 12px 20px rgba(0,0,0,0.4); }
+
+        /* Кнопка */
+        .btn-invert { 
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.06em; 
+            background: #000000; color: #ffffff; border: 1px solid #000000; 
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        .btn-invert:hover { background: #ffffff; color: #000000; transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn-invert:active { transform: translateY(0) scale(0.98); }
+        .dark .btn-invert { background: #ffffff; color: #000000; border-color: #ffffff; }
+        .dark .btn-invert:hover { background: transparent; color: #ffffff; box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15); }
+
+        /* Подвал */
+        .site-footer { position: relative; background: linear-gradient(180deg, #232329 0%, #1a1a1f 100%); color: #b9b9c0; }
+        .footer-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+        .footer-text { font-family: 'JetBrains Mono', monospace; font-weight: 400; letter-spacing: -0.02em; }
+        .footer-col { padding-left: 1.25rem; border-left: 1px solid rgba(255,255,255,0.1); }
+
+        /* Слайдер */
+        .slider-track img {
+            image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; 
+            backface-visibility: hidden; transform: translateZ(0);
+            transform: scale(1); transition: transform 6s ease-in-out;
+        }
+        .slider-track > div.active img { transform: scale(1.15); }
+        .slider-track > div { overflow: hidden; position: relative; }
+
+        #sliderTrack h3 {
+            font-family: 'Space Grotesk', sans-serif !important; font-weight: 700 !important;
+            text-transform: uppercase !important; letter-spacing: 0.05em !important; 
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; line-height: 1.1 !important;
+            font-size: 2.5rem !important;
+        }
+        @media (max-width: 768px) { #sliderTrack h3 { font-size: 1.8rem !important; } }
+        #sliderTrack h3::after { content: ''; display: block; width: 60px; height: 4px; background: #2563eb; margin-top: 12px; }
+            .sidebar-link { display: block; padding: 0.75rem 1rem; font-size: 0.875rem; color: #525252; border-left: 2px solid transparent; transition: all 0.2s; }
+        .dark .sidebar-link { color: #a3a3a3; }
+        .sidebar-link:hover { background-color: #f5f5f5; color: #000; }
+        .dark .sidebar-link:hover { background-color: #26262b; color: #fff; }
+        .sidebar-link.active { border-left-color: #2563eb; color: #2563eb; font-weight: 600; background-color: #f0f9ff; }
+        .dark .sidebar-link.active { background-color: #1e3a8a33; }body { overflow-x: hidden !important; }</style>
+</head>
+<body class="font-sans text-ink-900 dark:text-white antialiased min-h-screen flex flex-col selection:bg-black selection:text-white dark:selection:bg-white dark:bg-night-bg dark:selection:text-black transition-colors duration-200">
+
+    <!-- Шапка -->
+        <!-- Шапка -->
+    <header class="bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border sticky top-0 z-50 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative">
+            
+                        <!-- Логотип -->
+            <a href="index.html" class="flex items-center gap-2 sm:gap-3 group shrink-0 z-50">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
+                    <img src="logo.png" alt="Логотип ВКМиС" class="logo-img">
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-ink-900 dark:text-white text-base sm:text-lg leading-tight tracking-tight">ВКМиС</span>
+                    <span class="text-[9px] sm:text-[10px] text-ink-500 dark:text-ink-400 uppercase tracking-[0.08em] sm:tracking-[0.15em] font-semibold leading-tight max-w-[180px] sm:max-w-none">Колледж машиностроения и связи имени Н. Сердюкова</span>
+                </div>
+            </a>
+
+            <!-- Меню для ПК -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Главная</a>
+                <a href="abiturientam.html" class="font-display font-bold text-sm text-ink-900 dark:text-white hover:text-blue-600 transition-colors">Абитуриентам</a>
+                <!-- Выпадающее меню Студентам -->
+                <div class="relative group">
+                    <a href="studentam.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors flex items-center gap-1">
+                        Студентам <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    </a>
+                    <div class="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-night-surface border border-ink-200 dark:border-night-border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-md overflow-hidden">
+                        <a href="studentam.html#raspisanie" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Расписание занятий</a>
+                        <a href="studentam.html#otpusk" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Академический отпуск</a>
+                        <a href="studentam.html#perevod" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Переход на бюджет</a>
+                        <a href="studentam.html#sreda" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Электронная среда</a>
+                        <a href="studentam.html#gia" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">ГИА</a>
+                        <a href="studentam.html#demoekzamen" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Демоэкзамен</a>
+                    </div>
+                </div>
+                <a href="o-kolledzhe.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">О колледже</a>
+                <a href="sveden.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Сведения</a>
+            </nav>
+
+            <!-- Кнопки справа (Тема + Бургер) -->
+            <div class="flex items-center gap-2 z-50">
+                <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-10 h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                    <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-10 h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+                <!-- Мобильное меню (выезжает сверху) -->
+        <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border shadow-xl z-40 max-h-[80vh] overflow-y-auto">
+            <div class="px-4 py-4 space-y-1 flex flex-col">
+                <a href="index.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Главная</a>
+                <a href="abiturientam.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Абитуриентам</a>
+                
+                <!-- Аккордеон Студентам -->
+                <div class="w-full">
+                    <button id="mobileStudentsBtn" type="button" class="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded text-left">
+                        Студентам <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="mobileStudentsIcon"></i>
+                    </button>
+                    <div id="mobileStudentsMenu" class="hidden pl-4 space-y-1 mt-1">
+                        <a href="studentam.html#raspisanie" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Расписание занятий</a>
+                        <a href="studentam.html#otpusk" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Академический отпуск</a>
+                        <a href="studentam.html#perevod" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Переход на бюджет</a>
+                        <a href="studentam.html#sreda" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Электронная среда</a>
+                        <a href="studentam.html#gia" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">ГИА</a>
+                        <a href="studentam.html#demoekzamen" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Демоэкзамен</a>
+                    </div>
+                </div>
+
+                <a href="o-kolledzhe.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">О колледже</a>
+                <a href="sveden.html" class="block px-4 py-3 text-sm font-semibold text-ink-900 dark:text-white hover:bg-ink-50 dark:hover:bg-night-bg rounded">Сведения об образовательной организации</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный контент -->
+        <main class="flex-grow py-12 pt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-10 border-l-4 border-ink-900 dark:border-ink-100 pl-5">
+                <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">Официальный раздел</p>
+                <h1 class="text-3xl sm:text-4xl display-sm text-ink-950 dark:text-white mb-2">Сведения об образовательной организации</h1>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Сайдбар (Меню из 14 пунктов) -->
+                <aside class="w-full lg:w-1/3 flex-shrink-0">
+                    <div class="border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface sticky top-24">
+                        <div class="p-4 border-b border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg">
+                            <p class="font-display font-bold text-sm uppercase tracking-wider text-ink-900 dark:text-white">Подразделы</p>
+                        </div>
+                        <nav class="py-2">
+                            <a href="sveden.html" class="sidebar-link">1. Основные сведения</a>
+                            <a href="struktura.html" class="sidebar-link">2. Структура и органы управления</a>
+                            <a href="dokumenty.html" class="sidebar-link">3. Документы</a>
+                            <a href="obrazovanie.html" class="sidebar-link">4. Образование</a>
+                            <a href="rukovodstvo.html" class="sidebar-link">5. Руководство</a>
+                            <a href="pedagogi.html" class="sidebar-link">6. Педагогический состав</a>
+                            <a href="mto.html" class="sidebar-link">7. Материально-техническое обеспечение</a>
+                            <a href="platnye.html" class="sidebar-link">8. Платные образовательные услуги</a>
+                            <a href="finansy.html" class="sidebar-link">9. Финансово-хозяйственная деятельность</a>
+                            <a href="vakansii.html" class="sidebar-link">10. Вакантные места</a>
+                            <a href="stipendii.html" class="sidebar-link">11. Стипендии и меры поддержки</a>
+                            <a href="mezhdunarodnoe.html" class="sidebar-link">12. Международное сотрудничество</a>
+                            <a href="pitanie.html" class="sidebar-link active">13. Организация питания</a>
+                            <a href="standarty.html" class="sidebar-link">14. Образовательные стандарты</a>
+                        </nav>
+                    </div>
+                </aside>
+
+                <!-- Контентная часть -->
+                <div class="w-full lg:w-2/3">
+                    <div class="p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
+                        <h2 class="text-2xl font-display font-bold mb-6 text-ink-950 dark:text-white">Организация питания в образовательной организации</h2>
+                        
+                        <div class="space-y-6">
+                            
+                            <div class="p-6 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
+                                <h3 class="text-lg font-display font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-file-signature text-blue-600"></i> Нормативные документы</h3>
+                                <ul class="list-disc pl-5 text-sm text-ink-600 dark:text-ink-400 space-y-2">
+                                    <li>Положение об организации питания обучающихся ГБПОУ "ВКМиС им. Н. Сердюкова"</li>
+                                    <li>Контракт №958898 от 09.01.2024 г. на оказание услуг по организации питания</li>
+                                    <li>Дополнительное соглашение №7 от 22.09.2025 г.</li>
+                                    <li>Оператор питания</li>
+                                    <li>Приказ об организации получения питания для студентов, обучающихся по ППКРС</li>
+                                    <li>Изменения в приказ об организации получения питания для студентов, обучающихся по ППКРС</li>
+                                    <li>Постановление №622 от 12 октября 2022 г. О дополнительных мерах социальной поддержки семей граждан, принимающих участие в специальной военной операции...</li>
+                                    <li>Закон Волгоградской области №72-ОД от 19.12.2013 г. О стипендиях и мерах социальной поддержки обучающихся Волгоградской области</li>
+                                    <li>Изменения в Закон Волгоградской области №72-ОД от 19.12.2013 г.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600">
+                                    <i class="fa-solid fa-utensils text-2xl"></i>
+                                </div>
+                                <h3 class="text-lg font-display font-bold mb-2">Ежедневное меню и график</h3>
+                                <p class="text-sm text-ink-600 dark:text-ink-400 max-w-md mx-auto mb-4">
+                                    Меню ежедневного горячего питания, график раздачи и режим питания, а также инструкция по организации бракеража будут добавлены в этот раздел на следующем этапе разработки.
+                                </p>
+                            </div>
+
+                            <div class="p-6 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
+                                <h3 class="text-lg font-display font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-phone text-blue-600"></i> Горячие линии</h3>
+                                <ul class="list-disc pl-5 text-sm text-ink-600 dark:text-ink-400 space-y-2">
+                                    <li><strong>Региональная горячая линия:</strong> 30-86-02, 30-86-47</li>
+                                    <li><strong>ОНФ «Школьный завтрак»:</strong> 8-800-200-04-11</li>
+                                    <li><strong>Минпросвещения России:</strong> 8-800-200-91-85</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="site-footer py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <div class="footer-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-12 h-12 flex-shrink-0">
+                            <img src="logo.png" alt="Логотип ВКМиС" class="logo-img">
+                        </div>
+                        <span class="footer-title text-white text-lg tracking-tight">ВКМиС</span>
+                    </div>
+                    <p class="footer-text text-sm leading-relaxed text-white/70">
+                        Здесь учатся на инженеров, связистов, сварщиков и лаборантов.
+                        Не на словах — в мастерских, на станках и на реальных проектах
+                        с предприятий Волгограда.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <p class="eyebrow text-white/60 mb-4">Контакты</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-location-dot w-5 text-white/40"></i> г. Волгоград, ул. Даугавская, 7а / 64-й Армии, 117</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-envelope w-5 text-white/40"></i> olymp@vkmis.ru</p>
+                    <p class="footer-text text-sm mb-2 text-white/70"><i class="fa-solid fa-phone w-5 text-white/40"></i> +7 (8442) 32-69-39</p>
+                </div>
+                <div class="footer-col">
+                    <p class="eyebrow text-white/60 mb-4">Навигация</p>
+                    <ul class="space-y-2 text-sm footer-text text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">Главная</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Специальности</a></li>
+                        <li><a href="https://postupi.online" target="_blank" class="hover:text-white transition-colors">Подать документы</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-white/40">
+                    &copy; 2026 ВКМиС им. Н. Сердюкова
+                </p>
+                <p class="text-[11px] uppercase tracking-[0.16em] font-mono font-medium text-white/30">
+                    Волгоград · с 1940 года
+                </p>
+            </div>
+        </div>
+    </footer>
+
+        <script>
+        // --- ТЕМНАЯ ТЕМА ---
+        (function () {
+            var root = document.documentElement;
+            var STORAGE_KEY = 'vkmis-theme';
+            function getIcon() { return document.getElementById('themeIcon'); }
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    root.classList.add('dark');
+                    var icon = getIcon();
+                    if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
+                } else {
+                    root.classList.remove('dark');
+                    var icon2 = getIcon();
+                    if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
+                }
+            }
+            function toggleTheme() {
+                var next = root.classList.contains('dark') ? 'light' : 'dark';
+                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+                applyTheme(next);
+            }
+            var saved = 'light';
+            try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
+            applyTheme(saved);
+            var btn = document.getElementById('themeToggle');
+            if (btn) btn.addEventListener('click', toggleTheme);
+        })();
+
+        // --- БУРГЕР МЕНЮ ---
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileMenu.classList.toggle('hidden');
+                    var icon = mobileMenuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    }
+                });
+            }
+        });
+            // --- АККОРДЕОН В МОБИЛЬНОМ МЕНЮ ---
+        document.addEventListener('DOMContentLoaded', function() {
+            var studentsBtn = document.getElementById('mobileStudentsBtn');
+            var studentsMenu = document.getElementById('mobileStudentsMenu');
+            var studentsIcon = document.getElementById('mobileStudentsIcon');
+            
+            if (studentsBtn && studentsMenu) {
+                studentsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    studentsMenu.classList.toggle('hidden');
+                    if (studentsMenu.classList.contains('hidden')) {
+                        studentsIcon.style.transform = 'rotate(0deg)';
+                    } else {
+                        studentsIcon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            }
+        });
+</script>
+        
+            </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
