@@ -294,8 +294,7 @@ const searchData = [
         </section>
     </main>
 
-    <!-- Подвал -->
-    <footer class="site-footer py-16">
+<footer class="site-footer py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
                 <div class="footer-col">
@@ -337,194 +336,90 @@ const searchData = [
         </div>
     </footer>
 
-        <script>
-        // --- ТЕМНАЯ ТЕМА ---
-        (function () {
-            var root = document.documentElement;
-            var STORAGE_KEY = 'vkmis-theme';
-            function getIcon() { return document.getElementById('themeIcon'); }
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    root.classList.add('dark');
-                    var icon = getIcon();
-                    if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
-                } else {
-                    root.classList.remove('dark');
-                    var icon2 = getIcon();
-                    if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
-                }
-            }
-            function toggleTheme() {
-                var next = root.classList.contains('dark') ? 'light' : 'dark';
-                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-                applyTheme(next);
-            }
-            var saved = 'light';
-            try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
-            applyTheme(saved);
-            var btn = document.getElementById('themeToggle');
-            if (btn) btn.addEventListener('click', toggleTheme);
-        })();
-
-        // --- БУРГЕР МЕНЮ ---
-        document.addEventListener('DOMContentLoaded', function() {
-            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            var mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    mobileMenu.classList.toggle('hidden');
-                    var icon = mobileMenuBtn.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    } else {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    }
-                });
-            }
-        });
-            // --- АККОРДЕОН В МОБИЛЬНОМ МЕНЮ ---
-        document.addEventListener('DOMContentLoaded', function() {
-            var studentsBtn = document.getElementById('mobileStudentsBtn');
-            var studentsMenu = document.getElementById('mobileStudentsMenu');
-            var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
-            if (studentsBtn && studentsMenu) {
-                studentsBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    studentsMenu.classList.toggle('hidden');
-                    if (studentsMenu.classList.contains('hidden')) {
-                        studentsIcon.style.transform = 'rotate(0deg)';
-                    } else {
-                        studentsIcon.style.transform = 'rotate(180deg)';
-                    }
-                });
-            }
-        });
-</script>
+    <script>
+        var root = document.documentElement;
+        var STORAGE_KEY = 'vkmis-theme';
         
-                <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var studentsBtn = document.getElementById('mobileStudentsBtn');
-            var studentsMenu = document.getElementById('mobileStudentsMenu');
-            var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
-            if (studentsBtn && studentsMenu) {
-                // Удаляем старые обработчики, чтобы не было дублей
-                studentsBtn.replaceWith(studentsBtn.cloneNode(true));
-                var newBtn = document.getElementById('mobileStudentsBtn');
-                var newMenu = document.getElementById('mobileStudentsMenu');
-                var newIcon = document.getElementById('mobileStudentsIcon');
-
-                if (newBtn && newMenu) {
-                    newBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        newMenu.classList.toggle('hidden');
-                        if (newIcon) {
-                            newIcon.style.transform = newMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-                        }
-                    });
-                }
+        function getIcon() { return document.getElementById('themeIcon'); }
+        
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                root.classList.add('dark');
+                var icon = getIcon();
+                if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
+            } else {
+                root.classList.remove('dark');
+                var icon2 = getIcon();
+                if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
             }
-        });
-    </script>
-<script>
-        (function () {
-            var root = document.documentElement;
-            var STORAGE_KEY = 'vkmis-theme';
-            function getIcon() { return document.getElementById('themeIcon'); }
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    root.classList.add('dark');
-                    var icon = getIcon();
-                    if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
+        }
+        
+        function toggleTheme() {
+            var next = root.classList.contains('dark') ? 'light' : 'dark';
+            try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+            applyTheme(next);
+        }
+        
+        var saved = 'light';
+        try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
+        applyTheme(saved);
+        
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleTheme();
+            });
+        }
+
+        var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileMenu.classList.toggle('hidden');
+                var icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
                 } else {
-                    root.classList.remove('dark');
-                    var icon2 = getIcon();
-                    if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
                 }
-            }
-            function toggleTheme() {
-                var next = root.classList.contains('dark') ? 'light' : 'dark';
-                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-                applyTheme(next);
-            }
-            var saved = 'light';
-            try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
-            applyTheme(saved);
-            var btn = document.getElementById('themeToggle');
-            if (btn) btn.addEventListener('click', toggleTheme);
-        })();
+            });
+        }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            var mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    mobileMenu.classList.toggle('hidden');
-                    var icon = mobileMenuBtn.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    } else {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    }
-                });
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var studentsBtn = document.getElementById('mobileStudentsBtn');
-            var studentsMenu = document.getElementById('mobileStudentsMenu');
-            var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
-            if (studentsBtn && studentsMenu) {
-                studentsBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    studentsMenu.classList.toggle('hidden');
-                    if (studentsMenu.classList.contains('hidden')) {
-                        studentsIcon.style.transform = 'rotate(0deg)';
-                    } else {
-                        studentsIcon.style.transform = 'rotate(180deg)';
-                    }
-                });
-            }
-        });
+        var studentsBtn = document.getElementById('mobileStudentsBtn');
+        var studentsMenu = document.getElementById('mobileStudentsMenu');
+        var studentsIcon = document.getElementById('mobileStudentsIcon');
+        
+        if (studentsBtn && studentsMenu) {
+            studentsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                studentsMenu.classList.toggle('hidden');
+                if (studentsMenu.classList.contains('hidden')) {
+                    studentsIcon.style.transform = 'rotate(0deg)';
+                } else {
+                    studentsIcon.style.transform = 'rotate(180deg)';
+                }
+            });
+        }
     </script>
     <script>
-        // --- СКРИПТ ПОИСКА ---
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Скрипт поиска загружен');
-            
-            var searchBtn = document.getElementById('searchBtn');
-            var searchModal = document.getElementById('searchModal');
-            var closeSearch = document.getElementById('closeSearch');
-            var searchInput = document.getElementById('searchInput');
-            var searchResults = document.getElementById('searchResults');
+        var searchBtn = document.getElementById('searchBtn');
+        var searchModal = document.getElementById('searchModal');
+        var closeSearch = document.getElementById('closeSearch');
+        var searchInput = document.getElementById('searchInput');
+        var searchResults = document.getElementById('searchResults');
 
-            if (!searchBtn) {
-                console.error('Кнопка поиска не найдена!');
-                return;
-            }
-            if (!searchModal) {
-                console.error('Модалка поиска не найдена!');
-                return;
-            }
-
-            // Открытие модалки
+        if (searchBtn && searchModal) {
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 searchModal.classList.remove('hidden');
                 searchModal.classList.add('flex');
-                searchInput.focus();
+                if (searchInput) searchInput.focus();
             });
 
-            // Закрытие модалки
             if (closeSearch) {
                 closeSearch.addEventListener('click', function() {
                     searchModal.classList.add('hidden');
@@ -532,7 +427,6 @@ const searchData = [
                 });
             }
 
-            // Закрытие по клику вне модалки
             searchModal.addEventListener('click', function(e) {
                 if (e.target === searchModal) {
                     searchModal.classList.add('hidden');
@@ -540,7 +434,6 @@ const searchData = [
                 }
             });
 
-            // Поиск
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
                     var query = this.value.toLowerCase().trim();
@@ -574,42 +467,7 @@ const searchData = [
                     searchResults.innerHTML = html;
                 });
             }
-        });
+        }
     </script>
 </body>
-</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
