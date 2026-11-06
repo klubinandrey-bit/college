@@ -251,8 +251,65 @@
         });
 </script>
         
-            </body>
+                <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            var mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileMenu.classList.toggle('hidden');
+                    var icon = mobileMenuBtn.querySelector('i');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.classList.remove('fa-xmark');
+                        icon.classList.add('fa-bars');
+                    } else {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-xmark');
+                    }
+                });
+            }
+            
+            var studentsBtn = document.getElementById('mobileStudentsBtn');
+            var studentsMenu = document.getElementById('mobileStudentsMenu');
+            if (studentsBtn && studentsMenu) {
+                studentsBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    studentsMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var studentsBtn = document.getElementById('mobileStudentsBtn');
+            var studentsMenu = document.getElementById('mobileStudentsMenu');
+            var studentsIcon = document.getElementById('mobileStudentsIcon');
+            
+            if (studentsBtn && studentsMenu) {
+                // Удаляем старые обработчики, чтобы не было дублей
+                studentsBtn.replaceWith(studentsBtn.cloneNode(true));
+                var newBtn = document.getElementById('mobileStudentsBtn');
+                var newMenu = document.getElementById('mobileStudentsMenu');
+                var newIcon = document.getElementById('mobileStudentsIcon');
+
+                if (newBtn && newMenu) {
+                    newBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        newMenu.classList.toggle('hidden');
+                        if (newIcon) {
+                            newIcon.style.transform = newMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
 </html>
+
+
 
 
 
