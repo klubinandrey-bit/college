@@ -433,7 +433,7 @@ const searchData = [
         </div>
     </footer>
 
-        <script>
+    <script>
         // --- ТЕМНАЯ ТЕМА ---
         (function () {
             var root = document.documentElement;
@@ -481,12 +481,12 @@ const searchData = [
                 });
             }
         });
-            // --- АККОРДЕОН В МОБИЛЬНОМ МЕНЮ ---
+
+        // --- АККОРДЕОН В МОБИЛЬНОМ МЕНЮ ---
         document.addEventListener('DOMContentLoaded', function() {
             var studentsBtn = document.getElementById('mobileStudentsBtn');
             var studentsMenu = document.getElementById('mobileStudentsMenu');
             var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
             if (studentsBtn && studentsMenu) {
                 studentsBtn.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -499,144 +499,33 @@ const searchData = [
                 });
             }
         });
-</script>
-        
-                <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var studentsBtn = document.getElementById('mobileStudentsBtn');
-            var studentsMenu = document.getElementById('mobileStudentsMenu');
-            var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
-            if (studentsBtn && studentsMenu) {
-                // Удаляем старые обработчики, чтобы не было дублей
-                studentsBtn.replaceWith(studentsBtn.cloneNode(true));
-                var newBtn = document.getElementById('mobileStudentsBtn');
-                var newMenu = document.getElementById('mobileStudentsMenu');
-                var newIcon = document.getElementById('mobileStudentsIcon');
 
-                if (newBtn && newMenu) {
-                    newBtn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        newMenu.classList.toggle('hidden');
-                        if (newIcon) {
-                            newIcon.style.transform = newMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-                        }
-                    });
-                }
-            }
-        });
-    </script>
-<script>
-        (function () {
-            var root = document.documentElement;
-            var STORAGE_KEY = 'vkmis-theme';
-            function getIcon() { return document.getElementById('themeIcon'); }
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    root.classList.add('dark');
-                    var icon = getIcon();
-                    if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); icon.style.color = '#fbbf24'; }
-                } else {
-                    root.classList.remove('dark');
-                    var icon2 = getIcon();
-                    if (icon2) { icon2.classList.remove('fa-sun'); icon2.classList.add('fa-moon'); icon2.style.color = ''; }
-                }
-            }
-            function toggleTheme() {
-                var next = root.classList.contains('dark') ? 'light' : 'dark';
-                try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
-                applyTheme(next);
-            }
-            var saved = 'light';
-            try { saved = localStorage.getItem(STORAGE_KEY) || 'light'; } catch (e) {}
-            applyTheme(saved);
-            var btn = document.getElementById('themeToggle');
-            if (btn) btn.addEventListener('click', toggleTheme);
-        })();
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            var mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    mobileMenu.classList.toggle('hidden');
-                    var icon = mobileMenuBtn.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    } else {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    }
-                });
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var studentsBtn = document.getElementById('mobileStudentsBtn');
-            var studentsMenu = document.getElementById('mobileStudentsMenu');
-            var studentsIcon = document.getElementById('mobileStudentsIcon');
-            
-            if (studentsBtn && studentsMenu) {
-                studentsBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    studentsMenu.classList.toggle('hidden');
-                    if (studentsMenu.classList.contains('hidden')) {
-                        studentsIcon.style.transform = 'rotate(0deg)';
-                    } else {
-                        studentsIcon.style.transform = 'rotate(180deg)';
-                    }
-                });
-            }
-        });
-    </script>
-    <script>
         // --- СКРИПТ ПОИСКА ---
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Скрипт поиска загружен');
-            
             var searchBtn = document.getElementById('searchBtn');
             var searchModal = document.getElementById('searchModal');
             var closeSearch = document.getElementById('closeSearch');
             var searchInput = document.getElementById('searchInput');
             var searchResults = document.getElementById('searchResults');
-
-            if (!searchBtn) {
-                console.error('Кнопка поиска не найдена!');
-                return;
-            }
-            if (!searchModal) {
-                console.error('Модалка поиска не найдена!');
-                return;
-            }
-
-            // Открытие модалки
+            if (!searchBtn || !searchModal) return;
             searchBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 searchModal.classList.remove('hidden');
                 searchModal.classList.add('flex');
                 searchInput.focus();
             });
-
-            // Закрытие модалки
             if (closeSearch) {
                 closeSearch.addEventListener('click', function() {
                     searchModal.classList.add('hidden');
                     searchModal.classList.remove('flex');
                 });
             }
-
-            // Закрытие по клику вне модалки
             searchModal.addEventListener('click', function(e) {
                 if (e.target === searchModal) {
                     searchModal.classList.add('hidden');
                     searchModal.classList.remove('flex');
                 }
             });
-
-            // Поиск
             if (searchInput) {
                 searchInput.addEventListener('input', function() {
                     var query = this.value.toLowerCase().trim();
@@ -644,7 +533,6 @@ const searchData = [
                         searchResults.innerHTML = '<p class="text-ink-500">Введите запрос (минимум 2 символа)...</p>';
                         return;
                     }
-
                     var results = [];
                     if (typeof searchData !== 'undefined') {
                         searchData.forEach(function(page) {
@@ -653,12 +541,10 @@ const searchData = [
                             }
                         });
                     }
-
                     if (results.length === 0) {
                         searchResults.innerHTML = '<p class="text-ink-500">Ничего не найдено. Попробуйте другой запрос.</p>';
                         return;
                     }
-
                     var html = '<ul class="space-y-2">';
                     results.forEach(function(page) {
                         html += '<li class="p-3 bg-ink-50 dark:bg-night-bg rounded border border-ink-200 dark:border-night-border hover:border-blue-500 transition-colors">';
@@ -673,40 +559,4 @@ const searchData = [
         });
     </script>
 </body>
-</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
