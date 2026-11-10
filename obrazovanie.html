@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Образование — ВКМиС им. Н. Сердюкова</title>
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
     <script>
         try {
             if (window.tailwind) {
@@ -21,20 +16,10 @@
                     darkMode: 'class',
                     theme: {
                         extend: {
-                            fontFamily: {
-                                sans: ['Manrope', 'sans-serif'],
-                                display: ['Space Grotesk', 'sans-serif'],
-                                mono: ['JetBrains Mono', 'monospace']
-                            },
+                            fontFamily: { sans: ['Manrope', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
                             colors: {
-                                ink: {
-                                    50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4',
-                                    400: '#a3a3a3', 500: '#737373', 600: '#525252', 700: '#404040',
-                                    800: '#262626', 900: '#171717', 950: '#0a0a0a'
-                                },
-                                night: {
-                                    bg: '#1a1a1e', surface: '#26262b', border: '#3f3f46', hover: '#333338'
-                                }
+                                ink: { 50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4', 400: '#a3a3a3', 500: '#737373', 600: '#525252', 700: '#404040', 800: '#262626', 900: '#171717', 950: '#0a0a0a' },
+                                night: { bg: '#1a1a1e', surface: '#26262b', border: '#3f3f46', hover: '#333338' }
                             }
                         }
                     }
@@ -42,106 +27,28 @@
             }
         } catch (e) { }
     </script>
-    
     <style>
         html { scroll-behavior: smooth; }
-
         .logo-img { width: 100%; height: 100%; object-fit: contain; transition: filter 0.2s ease; }
         .dark header .logo-img { filter: brightness(0) invert(1); }
         footer .logo-img { filter: brightness(0) invert(1); }
-
-        /* Анимированный фон (сетка) */
-        .hero-pattern { position: relative; background-color: #ffffff; overflow: hidden; z-index: 1; }
-        .dark .hero-pattern { background-color: #1a1a1e; }
-        
-        .hero-pattern::before {
-            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background-image: linear-gradient(to right, #e5e5e5 1px, transparent 1px), linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
-            background-size: 40px 40px; animation: gridMove 10s linear infinite; z-index: -1; pointer-events: none;
-        }
-        .dark .hero-pattern::before {
-            background-image: linear-gradient(to right, #333338 1px, transparent 1px), linear-gradient(to bottom, #333338 1px, transparent 1px);
-        }
-        
-        .hero-pattern::after {
-            content: ""; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%;
-            border: 1px solid rgba(0,0,0,0.1); box-shadow: 0 0 100px rgba(0,0,0,0.03);
-            animation: pulseRing 6s ease-out infinite; z-index: -1; pointer-events: none;
-        }
-        .dark .hero-pattern::after { border-color: rgba(255,255,255,0.08); box-shadow: 0 0 100px rgba(255,255,255,0.03); }
-        
-        @keyframes gridMove { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
-        @keyframes pulseRing { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.5); opacity: 0; } }
-        .hero-pattern > * { position: relative; z-index: 2; }
-
-        /* Типографика */
         .display { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.03em; line-height: 1.02; }
         .display-sm { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
         .eyebrow { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.7rem; font-weight: 600; }
-
-        /* Плашки с кодами */
-        .stamp-new {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
-            color: #525252; background-color: #f5f5f5; padding: 0.3rem 0.7rem; border-radius: 4px;
-            display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s ease;
-        }
-        .dark .stamp-new { color: #d4d4d4; background-color: #333338; }
-        .card:hover .stamp-new { background-color: #000000; color: #ffffff; }
-        .dark .card:hover .stamp-new { background-color: #ffffff; color: #000000; }
-
-        /* Карточки */
-        .card { 
-            position: relative; border: 1px solid #e5e5e5; background: #ffffff; 
-            transition: all 0.3s ease; height: 100%; display: flex; flex-direction: column; overflow: hidden;
-        }
-        .dark .card { border-color: #262626; background: #171717; }
-        .card:hover { border-color: #d4d4d4; transform: translateY(-4px); box-shadow: 0 12px 20px rgba(0,0,0,0.08); }
-        .dark .card:hover { border-color: #404040; box-shadow: 0 12px 20px rgba(0,0,0,0.4); }
-
-        /* Кнопка */
-        .btn-invert { 
-            font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: 0.06em; 
-            background: #000000; color: #ffffff; border: 1px solid #000000; 
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
-        }
-        .btn-invert:hover { background: #ffffff; color: #000000; transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .btn-invert:active { transform: translateY(0) scale(0.98); }
-        .dark .btn-invert { background: #ffffff; color: #000000; border-color: #ffffff; }
-        .dark .btn-invert:hover { background: transparent; color: #ffffff; box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15); }
-
-        /* Подвал */
         .site-footer { position: relative; background: linear-gradient(180deg, #232329 0%, #1a1a1f 100%); color: #b9b9c0; }
         .footer-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
         .footer-text { font-family: 'JetBrains Mono', monospace; font-weight: 400; letter-spacing: -0.02em; }
         .footer-col { padding-left: 1.25rem; border-left: 1px solid rgba(255,255,255,0.1); }
-
-        /* Слайдер */
-        .slider-track img {
-            image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; 
-            backface-visibility: hidden; transform: translateZ(0);
-            transform: scale(1); transition: transform 6s ease-in-out;
-        }
-        .slider-track > div.active img { transform: scale(1.15); }
-        .slider-track > div { overflow: hidden; position: relative; }
-
-        #sliderTrack h3 {
-            font-family: 'Space Grotesk', sans-serif !important; font-weight: 700 !important;
-            text-transform: uppercase !important; letter-spacing: 0.05em !important; 
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important; line-height: 1.1 !important;
-            font-size: 2.5rem !important;
-        }
-        @media (max-width: 768px) { #sliderTrack h3 { font-size: 1.8rem !important; } }
-        #sliderTrack h3::after { content: ''; display: block; width: 60px; height: 4px; background: #2563eb; margin-top: 12px; }
-            .sidebar-link { display: block; padding: 0.75rem 1rem; font-size: 0.875rem; color: #525252; border-left: 2px solid transparent; transition: all 0.2s; }
+        .sidebar-link { display: block; padding: 0.75rem 1rem; font-size: 0.875rem; color: #525252; border-left: 2px solid transparent; transition: all 0.2s; }
         .dark .sidebar-link { color: #a3a3a3; }
         .sidebar-link:hover { background-color: #f5f5f5; color: #000; }
         .dark .sidebar-link:hover { background-color: #26262b; color: #fff; }
         .sidebar-link.active { border-left-color: #2563eb; color: #2563eb; font-weight: 600; background-color: #f0f9ff; }
-        .dark .sidebar-link.active { background-color: #1e3a8a33; }body { overflow-x: hidden !important; }</style>
+        .dark .sidebar-link.active { background-color: #1e3a8a33; }
+    body { overflow-x: hidden !important; }</style>
 </head>
-<body class="font-sans text-ink-900 dark:text-white antialiased min-h-screen flex flex-col selection:bg-black selection:text-white dark:selection:bg-white dark:bg-night-bg dark:selection:text-black transition-colors duration-200">
+<body class="font-sans text-ink-900 dark:text-white antialiased min-h-screen flex flex-col bg-white dark:bg-night-bg transition-colors duration-200">
 
-    <!-- Шапка -->
         <!-- Шапка -->
         <header class="bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border sticky top-0 z-50 w-full">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative gap-2">
@@ -162,7 +69,7 @@
                         Студентам <i class="fa-solid fa-chevron-down text-[10px]"></i>
                     </a>
                     <div class="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-night-surface border border-ink-200 dark:border-night-border shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 rounded-md overflow-hidden">
-                        <a href="studentam.html#raspisanie" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Расписание занятий</a>
+                        <a href="https://vkmis1.website.yandexcloud.net/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Расписание занятий</a>
                         <a href="studentam.html#otpusk" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Академический отпуск</a>
                         <a href="studentam.html#perevod" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Переход на бюджет</a>
                         <a href="studentam.html#sreda" class="block px-4 py-2.5 text-sm text-ink-600 dark:text-ink-400 hover:bg-ink-50 dark:hover:bg-night-bg hover:text-blue-600 transition-colors">Электронная среда</a>
@@ -233,7 +140,7 @@ const searchData = [
                         Студентам <i class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200" id="mobileStudentsIcon"></i>
                     </button>
                     <div id="mobileStudentsMenu" class="hidden pl-4 space-y-1 mt-1">
-                        <a href="studentam.html#raspisanie" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Расписание занятий</a>
+                        <a href="https://vkmis1.website.yandexcloud.net/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Расписание занятий</a>
                         <a href="studentam.html#otpusk" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Академический отпуск</a>
                         <a href="studentam.html#perevod" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Переход на бюджет</a>
                         <a href="studentam.html#sreda" class="block px-4 py-2 text-sm text-ink-600 dark:text-ink-400 hover:text-blue-600 hover:bg-ink-50 dark:hover:bg-night-bg rounded">Электронная среда</a>
@@ -247,18 +154,16 @@ const searchData = [
         </div>
     </header>
 
-    <!-- Главный контент -->
-        <main class="flex-grow py-12 pt-32">
+    <main class="flex-grow py-12 pt-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="mb-10 border-l-4 border-ink-900 dark:border-ink-100 pl-5">
                 <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">Официальный раздел</p>
-                <h1 class="text-3xl sm:text-4xl display-sm text-ink-950 dark:text-white mb-2">Сведения об образовательной организации</h1>
+                <h1 class="text-3xl sm:text-4xl display-sm text-ink-950 dark:text-white mb-2">Образование</h1>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
-                
-                <!-- Сайдбар (Меню из 14 пунктов) -->
+                <!-- Сайдбар -->
                 <aside class="w-full lg:w-1/3 flex-shrink-0">
                     <div class="border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface sticky top-24">
                         <div class="p-4 border-b border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg">
@@ -283,7 +188,7 @@ const searchData = [
                     </div>
                 </aside>
 
-                <!-- Контентная часть -->
+                <!-- Контент -->
                 <div class="w-full lg:w-2/3">
                     <div class="p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
                         <h2 class="text-2xl font-display font-bold mb-6 text-ink-950 dark:text-white">Образование</h2>
@@ -325,62 +230,37 @@ const searchData = [
                                 <div class="overflow-x-auto mb-6">
                                     <table class="w-full text-sm text-left text-ink-600 dark:text-ink-400 border-collapse">
                                         <thead class="text-xs uppercase bg-ink-50 dark:bg-night-bg text-ink-900 dark:text-white border border-ink-200 dark:border-night-border">
-                                            <tr>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border w-16">№ п/п</th>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border">Адрес места осуществления образовательной деятельности</th>
-                                            </tr>
+                                            <tr><th class="px-4 py-3 border border-ink-200 dark:border-night-border w-16">№ п/п</th><th class="px-4 py-3 border border-ink-200 dark:border-night-border">Адрес</th></tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="border border-ink-200 dark:border-night-border">
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">1</td>
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border">400011, г. Волгоград, Советский район, ул. Даугавская, 7а</td>
-                                            </tr>
-                                            <tr class="border border-ink-200 dark:border-night-border">
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">2</td>
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border">400079, г. Волгоград, Кировский район, ул. 64 Армии, 117</td>
-                                            </tr>
+                                            <tr class="border border-ink-200 dark:border-night-border"><td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">1</td><td class="px-4 py-3 border border-ink-200 dark:border-night-border">400011, г. Волгоград, Советский район, ул. Даугавская, 7а</td></tr>
+                                            <tr class="border border-ink-200 dark:border-night-border"><td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">2</td><td class="px-4 py-3 border border-ink-200 dark:border-night-border">400079, г. Волгоград, Кировский район, ул. 64 Армии, 117</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <h3 class="text-lg font-display font-bold mb-4 flex items-center gap-2 mt-8"><i class="fa-solid fa-location-dot text-blue-600"></i> Места осуществления образовательной деятельности по дополнительным профессиональным программам</h3>
+                                <h3 class="text-lg font-display font-bold mb-4 flex items-center gap-2 mt-8"><i class="fa-solid fa-location-dot text-blue-600"></i> Места по доп. программам</h3>
                                 <div class="overflow-x-auto mb-6">
                                     <table class="w-full text-sm text-left text-ink-600 dark:text-ink-400 border-collapse">
                                         <thead class="text-xs uppercase bg-ink-50 dark:bg-night-bg text-ink-900 dark:text-white border border-ink-200 dark:border-night-border">
-                                            <tr>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border w-16">№ п/п</th>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border">Адрес места осуществления образовательной деятельности</th>
-                                            </tr>
+                                            <tr><th class="px-4 py-3 border border-ink-200 dark:border-night-border w-16">№ п/п</th><th class="px-4 py-3 border border-ink-200 dark:border-night-border">Адрес</th></tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="border border-ink-200 dark:border-night-border">
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">1</td>
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border">400079, г. Волгоград, Кировский район, ул. 64 Армии, 117</td>
-                                            </tr>
+                                            <tr class="border border-ink-200 dark:border-night-border"><td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">1</td><td class="px-4 py-3 border border-ink-200 dark:border-night-border">400079, г. Волгоград, Кировский район, ул. 64 Армии, 117</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
 
-                                <h3 class="text-lg font-display font-bold mb-4 flex items-center gap-2 mt-8"><i class="fa-solid fa-location-dot text-blue-600"></i> Места проведения государственной итоговой аттестации</h3>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-sm text-left text-ink-600 dark:text-ink-400 border-collapse">
-                                        <thead class="text-xs uppercase bg-ink-50 dark:bg-night-bg text-ink-900 dark:text-white border border-ink-200 dark:border-night-border">
-                                            <tr>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border w-16">№ п/п</th>
-                                                <th class="px-4 py-3 border border-ink-200 dark:border-night-border">Адрес места осуществления образовательной деятельности</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="border border-ink-200 dark:border-night-border">
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">1</td>
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border">400011, г. Волгоград, Советский район, ул. Даугавская, 7а</td>
-                                            </tr>
-                                            <tr class="border border-ink-200 dark:border-night-border">
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border text-center">2</td>
-                                                <td class="px-4 py-3 border border-ink-200 dark:border-night-border">400079, г. Волгоград, Кировский район, ул. 64 Армии, 117</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <!-- Три плашки внизу -->
+                            <div class="space-y-4 mt-8">
+                                <div class="p-5 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
+                                    <p class="text-sm font-medium text-ink-700 dark:text-ink-300">Информация о трудоустройстве выпускников в виде численности выпускников прошлого учебного года</p>
+                                </div>
+                                <div class="p-5 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
+                                    <p class="text-sm font-medium text-ink-700 dark:text-ink-300">Информация о численности обучающихся, являющихся иностранными гражданами, по каждой общеобразовательной программе и каждой профессии, специальности, в том числе научной, направлению подготовки или укрупненной группе профессий, специальностей и направлений подготовки (для профессиональных образовательных программ)</p>
+                                </div>
+                                <div class="p-5 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
+                                    <p class="text-sm font-medium text-ink-700 dark:text-ink-300">Информация о численности обучающихся по реализуемым образовательным программам за счет бюджетных ассигнований бюджета Волгоградской области и по договорам об образовании за счет средств физических и юридических лиц</p>
                                 </div>
                             </div>
                         </div>
@@ -390,7 +270,6 @@ const searchData = [
         </div>
     </main>
 
-    <!-- Подвал -->
     <footer class="site-footer py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
