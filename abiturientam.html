@@ -121,9 +121,9 @@
                 <a href="o-kolledzhe.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">О колледже</a>
                 <a href="sveden.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Сведения</a>
             </nav>
-            <div class="flex items-center gap-2 z-50">
+            <div class="flex items-center gap-1 sm:gap-2 z-50">
                 <!-- Поиск: Кнопка -->
-<button id="searchBtn" type="button" aria-label="Поиск" class="w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+<button id="searchBtn" type="button" aria-label="Поиск" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
     <i class="fa-solid fa-magnifying-glass text-sm"></i>
 </button>
 
@@ -164,10 +164,11 @@ const searchData = [
     { title: "Образовательные стандарты", url: "standarty.html", keywords: "образовательные стандарты, фгос, требования" }
 ];
 </script>
- <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+ <button id="a11yBtn" type="button" aria-label="Версия для слабовидящих" title="Версия для слабовидящих" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none"><i class="fa-solid fa-eye text-sm"></i></button>
+                <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
                     <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
                 </button>
-                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
                     <i class="fa-solid fa-bars text-sm"></i>
                 </button>
             </div>
@@ -232,6 +233,39 @@ const searchData = [
         </section>
 
         <!-- Блок 1: 9 классов (Бюджет) -->
+        <section class="pt-10 pb-2 bg-white dark:bg-night-bg"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div id="abit-tools" class="mb-12 border-2 border-ink-200 dark:border-night-border bg-white dark:bg-night-surface rounded-xl p-5 sm:p-6 shadow-sm space-y-4">
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div class="flex flex-wrap gap-2" id="abit-filters">
+      <button type="button" data-cat="all" class="abit-flt px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-blue-600 text-white transition-colors">Все программы (26)</button>
+      <button type="button" data-cat="0" class="abit-flt px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-ink-100 dark:bg-night-bg text-ink-700 dark:text-ink-300 hover:border-blue-500 transition-colors">9 кл · Бюджет</button>
+      <button type="button" data-cat="1" class="abit-flt px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-ink-100 dark:bg-night-bg text-ink-700 dark:text-ink-300 hover:border-blue-500 transition-colors">9 кл · Платно</button>
+      <button type="button" data-cat="2" class="abit-flt px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-ink-100 dark:bg-night-bg text-ink-700 dark:text-ink-300 hover:border-blue-500 transition-colors">После 11 класса</button>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-2.5">
+      <div class="relative flex-1 sm:w-64">
+        <i class="fa-solid fa-magnifying-glass text-xs text-ink-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input id="abit-search" type="text" placeholder="Код или название..." class="w-full pl-9 pr-3 py-2 rounded-lg border border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg text-xs sm:text-sm text-ink-900 dark:text-white focus:outline-none focus:border-blue-500">
+      </div>
+      <button type="button" onclick="document.getElementById('gpa-box').classList.toggle('hidden')" class="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-blue-200 dark:border-blue-800/60 bg-blue-50 dark:bg-blue-950/50 text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-colors">
+        <i class="fa-solid fa-calculator text-xs"></i><span>Калькулятор балла</span>
+      </button>
+    </div>
+  </div>
+  <div id="gpa-box" class="hidden pt-4 border-t border-ink-200 dark:border-night-border space-y-4">
+    <div class="flex flex-wrap items-end gap-3">
+      <div><label class="block text-xs text-ink-500 dark:text-ink-400 mb-1">Пятёрок (5)</label><input id="g5" type="number" min="0" max="40" placeholder="0" oninput="calcGPA()" class="w-24 px-3 py-2 rounded-lg border border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg text-sm font-bold text-ink-900 dark:text-white"></div>
+      <div><label class="block text-xs text-ink-500 dark:text-ink-400 mb-1">Четвёрок (4)</label><input id="g4" type="number" min="0" max="40" placeholder="0" oninput="calcGPA()" class="w-24 px-3 py-2 rounded-lg border border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg text-sm font-bold text-ink-900 dark:text-white"></div>
+      <div><label class="block text-xs text-ink-500 dark:text-ink-400 mb-1">Троек (3)</label><input id="g3" type="number" min="0" max="40" placeholder="0" oninput="calcGPA()" class="w-24 px-3 py-2 rounded-lg border border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg text-sm font-bold text-ink-900 dark:text-white"></div>
+      <div id="gpa-res" class="flex-1 min-w-[220px] p-3 rounded-lg bg-ink-50 dark:bg-night-bg border border-ink-200 dark:border-night-border text-xs sm:text-sm text-ink-700 dark:text-ink-300">Введите количество оценок из аттестата — средний балл посчитается автоматически.</div>
+    </div>
+    <p class="text-[11px] text-ink-400 dark:text-ink-500">Расчёт выполняется как среднее арифметическое всех оценок аттестата (Приказ Минпросвещения РФ № 457).</p>
+  </div>
+</div>
+<div id="abit-empty" class="hidden mb-12 p-8 border-2 border-dashed border-ink-200 dark:border-night-border rounded-xl text-center space-y-3">
+  <p class="text-sm text-ink-600 dark:text-ink-400">По вашему запросу специальностей не найдено.</p>
+  <button type="button" onclick="resetAbit()" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-xs sm:text-sm font-semibold">Сбросить фильтр</button>
+</div>
+</div></section>
         <section class="py-20 bg-white dark:bg-night-bg border-b border-ink-200 dark:border-night-border">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
@@ -254,7 +288,7 @@ const searchData = [
         </section>
 
         <!-- Блок 2: 9 классов (Внебюджет) -->
-        <section class="py-20 bg-ink-50 dark:bg-night-surface border-b border-ink-200 dark:border-night-border">
+        <section class="py-20 bg-white dark:bg-night-bg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12 border-l-4 border-ink-900 dark:border-ink-100 pl-5 max-w-3xl">
                     <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">02 — На базе 9 классов (Внебюджет)</p>
@@ -363,7 +397,7 @@ const searchData = [
                     <ul class="space-y-2 text-sm footer-text text-white/70">
                         <li><a href="#" class="hover:text-white transition-colors">Главная</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Специальности</a></li>
-                        <li><a href="https://postupi.online" target="_blank" class="hover:text-white transition-colors">Подать документы</a></li>
+                        <li><a href="https://postupi.online" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Подать документы</a></li>
                     </ul>
                 </div>
             </div>
@@ -523,15 +557,124 @@ const searchData = [
             }
         });
     </script>
+
+<button id="scrollTopBtn" type="button" aria-label="Наверх" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-xl border-2 border-ink-200 dark:border-night-border bg-white/90 dark:bg-night-surface/90 backdrop-blur-sm shadow-md flex items-center justify-center text-ink-800 dark:text-ink-200 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none"><i class="fa-solid fa-arrow-up text-sm"></i></button>
+<script>
+(function(){
+  const b = document.getElementById('scrollTopBtn');
+  if(!b) return;
+  window.addEventListener('scroll', () => {
+    const show = window.scrollY > 300;
+    b.classList.toggle('opacity-0', !show);
+    b.classList.toggle('translate-y-4', !show);
+    b.classList.toggle('pointer-events-none', !show);
+  }, {passive: true});
+})();
+</script>
+<script>
+(function(){
+  const grids = Array.from(document.querySelectorAll('.grid.auto-rows-fr'));
+  const headers = grids.map(g => g.previousElementSibling);
+  let activeCat = 'all';
+
+  function applyAbit(){
+    const q = (document.getElementById('abit-search').value || '').trim().toLowerCase();
+    let totalShown = 0;
+    grids.forEach((g, idx) => {
+      const catMatch = (activeCat === 'all' || String(idx) === activeCat);
+      let gridShown = 0;
+      g.querySelectorAll('.card').forEach(c => {
+        const txtMatch = !q || c.textContent.toLowerCase().includes(q);
+        const show = catMatch && txtMatch;
+        c.classList.toggle('hidden', !show);
+        if(show){ gridShown++; totalShown++; }
+      });
+      const sec = g.closest('section'); if(sec) sec.classList.toggle('hidden', gridShown === 0);
+    });
+    document.getElementById('abit-empty').classList.toggle('hidden', totalShown > 0);
+  }
+
+  document.querySelectorAll('.abit-flt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCat = btn.dataset.cat;
+      document.querySelectorAll('.abit-flt').forEach(b => {
+        const on = b === btn;
+        b.classList.toggle('bg-blue-600', on);
+        b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-ink-100', !on);
+        b.classList.toggle('dark:bg-night-bg', !on);
+        b.classList.toggle('text-ink-700', !on);
+        b.classList.toggle('dark:text-ink-300', !on);
+      });
+      applyAbit();
+    });
+  });
+
+  document.getElementById('abit-search').addEventListener('input', applyAbit);
+  window.resetAbit = function(){
+    document.getElementById('abit-search').value = '';
+    document.querySelector('.abit-flt[data-cat="all"]').click();
+  };
+  window.calcGPA = function(){
+    const n5 = Math.max(0, +document.getElementById('g5').value || 0);
+    const n4 = Math.max(0, +document.getElementById('g4').value || 0);
+    const n3 = Math.max(0, +document.getElementById('g3').value || 0);
+    const cnt = n5 + n4 + n3;
+    const box = document.getElementById('gpa-res');
+    if(!cnt){ box.textContent = 'Введите количество оценок из аттестата — средний балл посчитается автоматически.'; return; }
+    const avg = ((5*n5 + 4*n4 + 3*n3) / cnt).toFixed(2);
+    let note = avg >= 4.30
+      ? 'Отличный конкурсный балл — уверенные шансы на бюджет по любому направлению.'
+      : (avg >= 3.50
+        ? 'Комфортный рабочий балл для поступления на бюджет в ВКМиС им. Н. Сердюкова.'
+        : 'Достаточно для участия в конкурсе аттестатов — уточните наличие мест в приёмной комиссии.');
+    box.innerHTML = `<div class="font-bold text-base text-blue-600 dark:text-blue-400">Средний балл: ${avg} <span class="text-xs font-normal text-ink-500">(оценок: ${cnt})</span></div><div class="mt-1 text-xs">${note}</div>`;
+  };
+})();
+</script>
+<script id="a11yScript">
+(function(){
+  const KEY = 'vkmis_a11y';
+  let state = { on: false, size: '100', theme: 'default', img: 'on', spacing: 'normal' };
+  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch(e){}
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  function apply(){
+    let st = document.getElementById('a11y-style');
+    if(!st){ st = document.createElement('style'); st.id = 'a11y-style'; document.head.appendChild(st); }
+    let bar = document.getElementById('a11y-bar');
+    if(!state.on){ st.textContent = ''; if(bar) bar.remove(); return; }
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'a11y-bar';
+      bar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;padding:10px 16px;border-bottom:2px solid currentColor;font-family:sans-serif;font-size:15px;z-index:9999;position:relative;">
+        <div><b>Шрифт:</b> <button data-a11y="size:100" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">A</button> <button data-a11y="size:125" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;font-size:18px;">A+</button> <button data-a11y="size:150" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;font-size:21px;">A++</button></div>
+        <div><b>Цвет:</b> <button data-a11y="theme:wb" style="padding:2px 8px;border:1px solid #000;background:#fff;color:#000;cursor:pointer;">Ч/Б</button> <button data-a11y="theme:bw" style="padding:2px 8px;border:1px solid #fff;background:#000;color:#fff;cursor:pointer;">Б/Ч</button> <button data-a11y="theme:blue" style="padding:2px 8px;border:1px solid #063462;background:#9dd1ff;color:#063462;cursor:pointer;">С/Г</button></div>
+        <div><b>Картинки:</b> <button data-a11y="img:on" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">Вкл</button> <button data-a11y="img:off" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">Выкл</button></div>
+        <div><b>Интервал:</b> <button data-a11y="spacing:normal" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">1x</button> <button data-a11y="spacing:wide" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">1.5x</button></div>
+        <button data-a11y="off:1" style="padding:4px 12px;border:2px solid currentColor;font-weight:bold;cursor:pointer;">Обычная версия</button>
+      </div>`;
+      document.body.insertBefore(bar, document.body.firstChild);
+      bar.addEventListener('click', function(e){
+        const act = e.target.getAttribute('data-a11y');
+        if(!act) return;
+        const [k, v] = act.split(':');
+        if(k === 'off'){ state.on = false; } else { state[k] = v; }
+        save(); apply();
+      });
+    }
+    const c = { wb:{bg:'#fff',fg:'#000'}, bw:{bg:'#000',fg:'#fff'}, blue:{bg:'#9dd1ff',fg:'#063462'}, default:{bg:'#fff',fg:'#000'} }[state.theme] || {bg:'#fff',fg:'#000'};
+    const ls = state.spacing === 'wide' ? '0.08em' : 'normal';
+    const imgCss = state.img === 'off' ? 'img, svg:not(.fa-eye) { display: none !important; }' : '';
+    st.textContent = `html{font-size:${state.size}%!important} body,body *:not(#a11y-bar):not(#a11y-bar *){background-color:${c.bg}!important;color:${c.fg}!important;border-color:${c.fg}!important;letter-spacing:${ls}!important;box-shadow:none!important} a{text-decoration:underline!important} ${imgCss}`;
+  }
+  document.querySelectorAll('#a11yBtn').forEach(btn => btn.addEventListener('click', function(){
+    state.on = !state.on;
+    if(state.on && state.theme === 'default') state.theme = 'wb';
+    save(); apply();
+  }));
+  apply();
+})();
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 

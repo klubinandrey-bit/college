@@ -174,9 +174,9 @@
                 <a href="o-kolledzhe.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">О колледже</a>
                 <a href="sveden.html" class="font-display font-bold text-sm text-ink-500 dark:text-ink-400 hover:text-blue-600 transition-colors">Сведения</a>
             </nav>
-            <div class="flex items-center gap-2 z-50">
+            <div class="flex items-center gap-1 sm:gap-2 z-50">
                 <!-- Поиск: Кнопка -->
-<button id="searchBtn" type="button" aria-label="Поиск" class="w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+<button id="searchBtn" type="button" aria-label="Поиск" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
     <i class="fa-solid fa-magnifying-glass text-sm"></i>
 </button>
 
@@ -217,10 +217,11 @@ const searchData = [
     { title: "Образовательные стандарты", url: "standarty.html", keywords: "образовательные стандарты, фгос, требования" }
 ];
 </script>
- <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+ <button id="a11yBtn" type="button" aria-label="Версия для слабовидящих" title="Версия для слабовидящих" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none"><i class="fa-solid fa-eye text-sm"></i></button>
+                <button id="themeToggle" type="button" aria-label="Переключить тему" class="w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
                     <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
                 </button>
-                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-8 h-8 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
+                <button id="mobileMenuBtn" type="button" aria-label="Открыть меню" class="md:hidden w-7 h-7 sm:w-10 sm:h-10 border border-ink-200 dark:border-night-border bg-transparent text-ink-700 dark:text-ink-300 hover:border-ink-900 dark:hover:border-ink-100 transition-all flex items-center justify-center focus:outline-none">
                     <i class="fa-solid fa-bars text-sm"></i>
                 </button>
             </div>
@@ -254,7 +255,7 @@ const searchData = [
             
             <div class="mb-10 border-l-4 border-ink-900 dark:border-ink-100 pl-5">
                 <p class="eyebrow text-ink-500 dark:text-ink-400 mb-3">Официальный раздел</p>
-                <h1 class="text-3xl sm:text-4xl display-sm text-ink-950 dark:text-white mb-2">Сведения об образовательной организации</h1>
+                <h1 class="break-words text-3xl sm:text-4xl display-sm text-ink-950 dark:text-white mb-2">Сведения об образовательной организации</h1>
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
@@ -285,13 +286,13 @@ const searchData = [
                 </aside>
 
                 <!-- Контентная часть -->
-                <div class="w-full lg:w-2/3">
-                    <div class="p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
+                <div class="w-full lg:w-2/3" itemprop="inter">
+                    <div class="p-5 sm:p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface">
                         <h2 class="text-2xl font-display font-bold mb-6 text-ink-950 dark:text-white">Международное сотрудничество</h2>
                         
                         <div class="space-y-6">
                             
-                            <div class="p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface text-center">
+                            <div class="p-5 sm:p-8 border border-ink-200 dark:border-night-border bg-white dark:bg-night-surface text-center">
                                 <div class="w-16 h-16 mx-auto mb-4 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-blue-600">
                                     <i class="fa-solid fa-globe text-2xl"></i>
                                 </div>
@@ -343,7 +344,7 @@ const searchData = [
                     <ul class="space-y-2 text-sm footer-text text-white/70">
                         <li><a href="#" class="hover:text-white transition-colors">Главная</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Специальности</a></li>
-                        <li><a href="https://postupi.online" target="_blank" class="hover:text-white transition-colors">Подать документы</a></li>
+                        <li><a href="https://postupi.online" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Подать документы</a></li>
                     </ul>
                 </div>
             </div>
@@ -483,5 +484,62 @@ const searchData = [
             }
         });
     </script>
+
+<button id="scrollTopBtn" type="button" aria-label="Наверх" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-5 right-5 z-40 w-11 h-11 rounded-xl border-2 border-ink-200 dark:border-night-border bg-white/90 dark:bg-night-surface/90 backdrop-blur-sm shadow-md flex items-center justify-center text-ink-800 dark:text-ink-200 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none"><i class="fa-solid fa-arrow-up text-sm"></i></button>
+<script>
+(function(){
+  const b = document.getElementById('scrollTopBtn');
+  if(!b) return;
+  window.addEventListener('scroll', () => {
+    const show = window.scrollY > 300;
+    b.classList.toggle('opacity-0', !show);
+    b.classList.toggle('translate-y-4', !show);
+    b.classList.toggle('pointer-events-none', !show);
+  }, {passive: true});
+})();
+</script>
+<script id="a11yScript">
+(function(){
+  const KEY = 'vkmis_a11y';
+  let state = { on: false, size: '100', theme: 'default', img: 'on', spacing: 'normal' };
+  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch(e){}
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  function apply(){
+    let st = document.getElementById('a11y-style');
+    if(!st){ st = document.createElement('style'); st.id = 'a11y-style'; document.head.appendChild(st); }
+    let bar = document.getElementById('a11y-bar');
+    if(!state.on){ st.textContent = ''; if(bar) bar.remove(); return; }
+    if(!bar){
+      bar = document.createElement('div');
+      bar.id = 'a11y-bar';
+      bar.innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;padding:10px 16px;border-bottom:2px solid currentColor;font-family:sans-serif;font-size:15px;z-index:9999;position:relative;">
+        <div><b>Шрифт:</b> <button data-a11y="size:100" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">A</button> <button data-a11y="size:125" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;font-size:18px;">A+</button> <button data-a11y="size:150" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;font-size:21px;">A++</button></div>
+        <div><b>Цвет:</b> <button data-a11y="theme:wb" style="padding:2px 8px;border:1px solid #000;background:#fff;color:#000;cursor:pointer;">Ч/Б</button> <button data-a11y="theme:bw" style="padding:2px 8px;border:1px solid #fff;background:#000;color:#fff;cursor:pointer;">Б/Ч</button> <button data-a11y="theme:blue" style="padding:2px 8px;border:1px solid #063462;background:#9dd1ff;color:#063462;cursor:pointer;">С/Г</button></div>
+        <div><b>Картинки:</b> <button data-a11y="img:on" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">Вкл</button> <button data-a11y="img:off" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">Выкл</button></div>
+        <div><b>Интервал:</b> <button data-a11y="spacing:normal" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">1x</button> <button data-a11y="spacing:wide" style="padding:2px 8px;border:1px solid currentColor;cursor:pointer;">1.5x</button></div>
+        <button data-a11y="off:1" style="padding:4px 12px;border:2px solid currentColor;font-weight:bold;cursor:pointer;">Обычная версия</button>
+      </div>`;
+      document.body.insertBefore(bar, document.body.firstChild);
+      bar.addEventListener('click', function(e){
+        const act = e.target.getAttribute('data-a11y');
+        if(!act) return;
+        const [k, v] = act.split(':');
+        if(k === 'off'){ state.on = false; } else { state[k] = v; }
+        save(); apply();
+      });
+    }
+    const c = { wb:{bg:'#fff',fg:'#000'}, bw:{bg:'#000',fg:'#fff'}, blue:{bg:'#9dd1ff',fg:'#063462'}, default:{bg:'#fff',fg:'#000'} }[state.theme] || {bg:'#fff',fg:'#000'};
+    const ls = state.spacing === 'wide' ? '0.08em' : 'normal';
+    const imgCss = state.img === 'off' ? 'img, svg:not(.fa-eye) { display: none !important; }' : '';
+    st.textContent = `html{font-size:${state.size}%!important} body,body *:not(#a11y-bar):not(#a11y-bar *){background-color:${c.bg}!important;color:${c.fg}!important;border-color:${c.fg}!important;letter-spacing:${ls}!important;box-shadow:none!important} a{text-decoration:underline!important} ${imgCss}`;
+  }
+  document.querySelectorAll('#a11yBtn').forEach(btn => btn.addEventListener('click', function(){
+    state.on = !state.on;
+    if(state.on && state.theme === 'default') state.theme = 'wb';
+    save(); apply();
+  }));
+  apply();
+})();
+</script>
 </body>
 </html>
