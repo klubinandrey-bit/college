@@ -560,7 +560,7 @@ const searchData = [
     const c = { wb:{bg:'#fff',fg:'#000'}, bw:{bg:'#000',fg:'#fff'}, blue:{bg:'#9dd1ff',fg:'#063462'}, default:{bg:'#fff',fg:'#000'} }[state.theme] || {bg:'#fff',fg:'#000'};
     const ls = state.spacing === 'wide' ? '0.08em' : 'normal';
     const imgCss = state.img === 'off' ? 'img, svg:not(.fa-eye) { display: none !important; }' : '';
-    st.textContent = `html{font-size:${state.size}%!important} body,body *:not(#a11y-bar):not(#a11y-bar *){background-color:${c.bg}!important;color:${c.fg}!important;border-color:${c.fg}!important;letter-spacing:${ls}!important;box-shadow:none!important} a{text-decoration:underline!important} ${imgCss}`;
+    st.textContent = `html{font-size:${state.size}%!important} body,body *:not(#a11y-bar):not(#a11y-bar *){background-color:${c.bg}!important;color:${c.fg}!important;border-color:${c.fg}!important;letter-spacing:${ls}!important;box-shadow:none!important} a{text-decoration:underline!important} @media(max-width:640px){header{font-size:13px!important}header .logo-img{width:34px!important;height:34px!important}header a span:last-child,header p{display:none!important}header button{width:32px!important;height:32px!important;padding:0!important}h1{font-size:clamp(1.6rem,7.5vw,2.6rem)!important;word-break:normal!important}} ${imgCss}`;
   }
   document.querySelectorAll('#a11yBtn').forEach(btn => btn.addEventListener('click', function(){
     state.on = !state.on;
