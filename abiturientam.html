@@ -706,7 +706,7 @@ const q=QZ[qi],opts=q.slice(1).map(o=>{let[t,k]=o.split(":");return `<button typ
 b.innerHTML=`<div class="flex justify-between text-xs font-mono text-ink-500"><span>Вопрос ${qi+1} из ${QZ.length}</span><span>${Math.round(qi/QZ.length*100)}%</span></div><div class="font-bold text-sm sm:text-base text-ink-950 dark:text-white">${q[0]}</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${opts}</div>`;
 }
 function ansQ(k){qsc[k]++;qi++;renderQ()}
-function applyQ(kw){const i=document.getElementById("abit-search");i.value=kw;i.dispatchEvent(new Event("input"));document.getElementById("quiz-box").classList.add("hidden");setTimeout(()=>document.getElementById("abit-tools").scrollIntoView({behavior:"smooth"}),50)}
+function applyQ(kw){const i=document.getElementById("abit-search");i.value=kw;i.dispatchEvent(new Event("input"));document.getElementById("quiz-box").classList.add("hidden");setTimeout(()=>{const c=document.querySelector(".card:not(.hidden)");if(c)window.scrollTo({top:Math.max(0,c.getBoundingClientRect().top+window.pageYOffset-110),behavior:"smooth"})},50)}
 </script>
 </body>
 </html>
