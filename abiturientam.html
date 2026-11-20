@@ -249,9 +249,10 @@ const searchData = [
       </div>
       <button type="button" onclick="document.getElementById('gpa-box').classList.toggle('hidden')" class="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-blue-200 dark:border-blue-800/60 bg-blue-50 dark:bg-blue-950/50 text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-colors">
         <i class="fa-solid fa-calculator text-xs"></i><span>Калькулятор балла</span>
-      </button>
+      </button><button type="button" onclick="startQuiz()" class="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/50 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:bg-emerald-600 hover:text-white transition-colors"><i class="fa-solid fa-compass text-xs"></i><span>Тест на профессию</span></button>
     </div>
   </div>
+  <div id="quiz-box" class="hidden pt-4 border-t border-ink-200 dark:border-night-border space-y-4"></div>
   <div id="gpa-box" class="hidden pt-4 border-t border-ink-200 dark:border-night-border space-y-4">
     <div class="flex flex-wrap items-end gap-3">
       <div><label class="block text-xs text-ink-500 dark:text-ink-400 mb-1">Пятёрок (5)</label><input id="g5" type="number" min="0" max="40" placeholder="0" oninput="calcGPA()" class="w-24 px-3 py-2 rounded-lg border border-ink-200 dark:border-night-border bg-ink-50 dark:bg-night-bg text-sm font-bold text-ink-900 dark:text-white"></div>
@@ -585,7 +586,7 @@ const searchData = [
       const catMatch = (activeCat === 'all' || String(idx) === activeCat);
       let gridShown = 0;
       g.querySelectorAll('.card').forEach(c => {
-        const txtMatch = !q || c.textContent.toLowerCase().includes(q);
+        const qs = q.split(",").map(x=>x.trim()).filter(Boolean); const txtMatch = !qs.length || qs.some(x=>c.textContent.toLowerCase().includes(x));
         const show = catMatch && txtMatch;
         c.classList.toggle('hidden', !show);
         if(show){ gridShown++; totalShown++; }
@@ -675,6 +676,37 @@ const searchData = [
   }));
   apply();
 })();
+</script>
+<script>
+const QZ=[
+["1. Что тебе интереснее разбирать?","Компьютеры, сети и софт:it","Механизмы, станки и 3D-детали:cnc","Металл, сварку и конструкции:weld","Проводку, схемы и автоматику:elec"],
+["2. Какой формат работы ближе?","За монитором с кодом и сетями:it","На точном оборудовании с ЧПУ:cnc","Создавать прочные изделия руками:weld","Наладка и диагностика приборов:elec"],
+["3. Какой школьный предмет даётся легче?","Информатика и логика:it","Черчение и геометрия:cnc","Технология и труд:weld","Физика и электричество:elec"],
+["4. Что важнее в будущей профессии?","Быстрый старт в IT и телекоме:it","Высокий разряд на заводах ЧПУ:cnc","Востребованность на стройках и заводах:weld","Универсальность в энергетике и ЖКХ:elec"],
+["5. Как относишься к работе с чертежами и 3D?","Предпочитаю схемы сетей и интерфейсы:it","Обожаю 3D-модели и точность до микрона:cnc","Читаю чертежи металлоконструкций:weld","Читаю электрические принципиальные схемы:elec"],
+["6. Где видишь себя через 3 года?","В офисе связи, провайдере или IT-отделе:it","В цеху высокоточного машиностроения:cnc","На крупном промышленном производстве:weld","В энергослужбе предприятия или связи:elec"],
+["7. Какой результат приносит больше кайфа?","Когда сеть и серверы летают без сбоев:it","Когда деталь вышла идеально по размерам:cnc","Когда сварной шов ровный и надёжный:weld","Когда сложная установка ожила и работает:elec"]
+];
+const QRES={
+it:["IT, связь и телекоммуникации","09.01.03 Оператор информационных систем и ресурсов, 11.02.15 Инфокоммуникационные сети и системы связи","09.01.03, 11.02.15"],
+cnc:["Машиностроение, станки с ЧПУ и 3D","15.02.16 Технология машиностроения, 15.01.38 Оператор-наладчик станков, 15.02.09 Аддитивные технологии","15.02.16, 15.01.38, 15.02.09"],
+weld:["Сварочное производство и проммонтаж","15.02.19 Сварочное производство, 15.02.17 Монтаж и ремонт промышленного оборудования","15.02.19, 15.02.17"],
+elec:["Электрика, слаботочные системы и автоматика","13.02.13 Эксплуатация электрооборудования, 08.01.30 Электромонтажник слаботочных систем","13.02.13, 08.01.30"]
+};
+let qi=0,qsc={it:0,cnc:0,weld:0,elec:0};
+function startQuiz(){qi=0;qsc={it:0,cnc:0,weld:0,elec:0};const b=document.getElementById("quiz-box");b.classList.remove("hidden");renderQ()}
+function renderQ(){
+const b=document.getElementById("quiz-box");
+if(qi>=QZ.length){
+  let win=Object.keys(qsc).reduce((a,k)=>qsc[k]>qsc[a]?k:a,"it"),r=QRES[win];
+  b.innerHTML=`<div class="p-4 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 space-y-2"><div class="text-xs font-mono uppercase text-emerald-700 dark:text-emerald-400">Твой профиль (${qi}/${QZ.length})</div><div class="text-base font-bold text-ink-950 dark:text-white">${r[0]}</div><p class="text-xs sm:text-sm text-ink-600 dark:text-ink-300">Рекомендуемые программы: <b>${r[1]}</b></p><div class="flex flex-wrap gap-2 pt-1"><button type="button" onclick="applyQ('${r[2]}')" class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold">Показать в списке</button><button type="button" onclick="startQuiz()" class="px-3.5 py-1.5 rounded-lg border border-ink-200 dark:border-night-border text-xs font-semibold">Пройти заново</button></div></div>`;
+  return;
+}
+const q=QZ[qi],opts=q.slice(1).map(o=>{let[t,k]=o.split(":");return `<button type="button" onclick="ansQ('${k}')" class="text-left p-3 rounded-lg border border-ink-200 dark:border-night-border hover:border-blue-500 text-xs sm:text-sm transition-colors">${t}</button>`}).join("");
+b.innerHTML=`<div class="flex justify-between text-xs font-mono text-ink-500"><span>Вопрос ${qi+1} из ${QZ.length}</span><span>${Math.round(qi/QZ.length*100)}%</span></div><div class="font-bold text-sm sm:text-base text-ink-950 dark:text-white">${q[0]}</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${opts}</div>`;
+}
+function ansQ(k){qsc[k]++;qi++;renderQ()}
+function applyQ(kw){const i=document.getElementById("abit-search");i.value=kw;i.dispatchEvent(new Event("input"));document.getElementById("quiz-box").classList.add("hidden")}
 </script>
 </body>
 </html>
