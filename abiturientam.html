@@ -679,33 +679,35 @@ const searchData = [
 </script>
 <script>
 const QZ=[
-["1. Что тебе интереснее разбирать?","Компьютеры, сети и софт:it","Механизмы, станки и 3D-детали:cnc","Металл, сварку и конструкции:weld","Проводку, схемы и автоматику:elec"],
-["2. Какой формат работы ближе?","За монитором с кодом и сетями:it","На точном оборудовании с ЧПУ:cnc","Создавать прочные изделия руками:weld","Наладка и диагностика приборов:elec"],
-["3. Какой школьный предмет даётся легче?","Информатика и логика:it","Черчение и геометрия:cnc","Технология и труд:weld","Физика и электричество:elec"],
-["4. Что важнее в будущей профессии?","Быстрый старт в IT и телекоме:it","Высокий разряд на заводах ЧПУ:cnc","Востребованность на стройках и заводах:weld","Универсальность в энергетике и ЖКХ:elec"],
-["5. Как относишься к работе с чертежами и 3D?","Предпочитаю схемы сетей и интерфейсы:it","Обожаю 3D-модели и точность до микрона:cnc","Читаю чертежи металлоконструкций:weld","Читаю электрические принципиальные схемы:elec"],
-["6. Где видишь себя через 3 года?","В офисе связи, провайдере или IT-отделе:it","В цеху высокоточного машиностроения:cnc","На крупном промышленном производстве:weld","В энергослужбе предприятия или связи:elec"],
-["7. Какой результат приносит больше кайфа?","Когда сеть и серверы летают без сбоев:it","Когда деталь вышла идеально по размерам:cnc","Когда сварной шов ровный и надёжный:weld","Когда сложная установка ожила и работает:elec"]
+["1. Что тебе интереснее разбирать и изучать?","Компьютеры, сети и софт:it:elec","Станки с ЧПУ и 3D-печать:cnc:it","Металл, сварку и сборку узлов:weld:cnc","Проводку, датчики и автоматику:elec:it","Логистику, посылки и сервисы:post:it","Состав веществ, пробы и реактивы:lab:cnc"],
+["2. Какой формат работы тебе ближе?","За монитором с кодом и сетями:it:post","На высокоточном оборудовании:cnc:elec","Создавать прочные конструкции:weld:cnc","Наладка и диагностика систем:elec:it","Общение с людьми и документооборот:post:lab","Исследования и анализы в лаборатории:lab:elec"],
+["3. Какой предмет даётся легче всего?","Информатика и логика:it:elec","Черчение и геометрия:cnc:weld","Технология и работа руками:weld:cnc","Физика и электричество:elec:it","Русский язык и обществознание:post:it","Химия и биология:lab:cnc"],
+["4. Что для тебя важнее в профессии?","Быстрый старт в IT и телекоме:it:post","Высокий разряд на заводах ЧПУ:cnc:weld","Востребованность на стройках и заводах:weld:elec","Универсальность в энергетике и ЖКХ:elec:it","Стабильность в крупных компаниях связи:post:it","Точность, порядок и чистый цех/лаборатория:lab:cnc"],
+["5. Как относишься к чертежам, схемам и цифрам?","Люблю схемы сетей и интерфейсы:it:elec","Обожаю 3D-модели и точность до микрона:cnc:it","Читаю чертежи металлоконструкций:weld:cnc","Читаю электрические схемы:elec:lab","Легко ориентируюсь в базах и накладных:post:it","Люблю формулы, таблицы и расчёты проб:lab:it"],
+["6. Где видишь себя через 3 года?","В IT-отделе или у интернет-провайдера:it:elec","В цеху высокоточного машиностроения:cnc:weld","На крупном промышленном производстве:weld:cnc","В энергослужбе или монтаже умных систем:elec:it","В отделении связи или центре логистики:post:it","В лаборатории контроля качества завода:lab:elec"],
+["7. Какой результат приносит больше кайфа?","Когда сеть и серверы летают без сбоев:it:post","Когда деталь вышла идеально по размерам:cnc:weld","Когда сварной шов ровный и надёжный:weld:cnc","Когда сложная установка ожила и работает:elec:it","Когда всё доставлено точно и без очередей:post:it","Когда анализ выполнен с точностью до миллиграмма:lab:cnc"]
 ];
 const QRES={
-it:["IT, связь и телекоммуникации","09.01.03 Оператор информационных систем и ресурсов, 11.02.15 Инфокоммуникационные сети и системы связи","09.01.03, 11.02.15"],
+it:["IT, сети и телекоммуникации","09.01.03 Оператор информационных систем и ресурсов, 11.02.15 Инфокоммуникационные сети и системы связи","09.01.03, 11.02.15"],
 cnc:["Машиностроение, станки с ЧПУ и 3D","15.02.16 Технология машиностроения, 15.01.38 Оператор-наладчик станков, 15.02.09 Аддитивные технологии","15.02.16, 15.01.38, 15.02.09"],
 weld:["Сварочное производство и проммонтаж","15.02.19 Сварочное производство, 15.02.17 Монтаж и ремонт промышленного оборудования","15.02.19, 15.02.17"],
-elec:["Электрика, слаботочные системы и автоматика","13.02.13 Эксплуатация электрооборудования, 08.01.30 Электромонтажник слаботочных систем","13.02.13, 08.01.30"]
+elec:["Электрика, слаботочные системы и автоматика","13.02.13 Эксплуатация электрооборудования, 08.01.30 Электромонтажник слаботочных систем","13.02.13, 08.01.30"],
+post:["Почтовая связь и логистика","11.02.12 Почтовая связь","11.02.12"],
+lab:["Лабораторный контроль и химия","18.01.34 Лаборант по контролю качества сырья и продукции","18.01.34"]
 };
-let qi=0,qsc={it:0,cnc:0,weld:0,elec:0};
-function startQuiz(){qi=0;qsc={it:0,cnc:0,weld:0,elec:0};const b=document.getElementById("quiz-box");b.classList.remove("hidden");renderQ()}
+let qi=0,qsc={};
+function startQuiz(){qi=0;qsc={it:0,cnc:0,weld:0,elec:0,post:0,lab:0};const b=document.getElementById("quiz-box");b.classList.remove("hidden");renderQ()}
 function renderQ(){
 const b=document.getElementById("quiz-box");
 if(qi>=QZ.length){
-  let win=Object.keys(qsc).reduce((a,k)=>qsc[k]>qsc[a]?k:a,"it"),r=QRES[win];
-  b.innerHTML=`<div class="p-4 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 space-y-2"><div class="text-xs font-mono uppercase text-emerald-700 dark:text-emerald-400">Твой профиль (${qi}/${QZ.length})</div><div class="text-base font-bold text-ink-950 dark:text-white">${r[0]}</div><p class="text-xs sm:text-sm text-ink-600 dark:text-ink-300">Рекомендуемые программы: <b>${r[1]}</b></p><div class="flex flex-wrap gap-2 pt-1"><button type="button" onclick="applyQ('${r[2]}')" class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold">Показать в списке</button><button type="button" onclick="startQuiz()" class="px-3.5 py-1.5 rounded-lg border border-ink-200 dark:border-night-border text-xs font-semibold">Пройти заново</button></div></div>`;
-  return;
+let top=Object.keys(qsc).sort((a,b)=>qsc[b]-qsc[a]),r=QRES[top[0]],r2=QRES[top[1]],pct=Math.min(99,Math.round(qsc[top[0]]/14*100));
+b.innerHTML=`<div class="p-4 sm:p-5 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 space-y-2.5"><div class="flex items-center justify-between text-xs font-mono uppercase text-emerald-700 dark:text-emerald-400"><span>Основной профиль</span><span>Совпадение: ${pct}%</span></div><div class="text-base sm:text-lg font-bold text-ink-950 dark:text-white">${r[0]}</div><p class="text-xs sm:text-sm text-ink-700 dark:text-ink-300">Подходящие программы: <b>${r[1]}</b></p><div class="pt-2 border-t border-emerald-200/70 dark:border-emerald-800/60 text-xs text-ink-600 dark:text-ink-400">Близкий запасной вариант: <b>${r2[0]}</b> (${r2[2]})</div><div class="flex flex-wrap gap-2 pt-1"><button type="button" onclick="applyQ('${r[2]}')" class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-semibold">Показать основной список</button><button type="button" onclick="applyQ('${r2[2]}')" class="px-3.5 py-1.5 rounded-lg border border-blue-300 dark:border-blue-700 text-blue-600 dark:text-blue-400 text-xs font-semibold">Запасной вариант</button><button type="button" onclick="startQuiz()" class="px-3.5 py-1.5 rounded-lg border border-ink-200 dark:border-night-border text-xs font-semibold">Заново</button></div></div>`;
+return;
 }
-const q=QZ[qi],opts=q.slice(1).map(o=>{let[t,k]=o.split(":");return `<button type="button" onclick="ansQ('${k}')" class="text-left p-3 rounded-lg border border-ink-200 dark:border-night-border hover:border-blue-500 text-xs sm:text-sm transition-colors">${t}</button>`}).join("");
+const q=QZ[qi],opts=q.slice(1).map(o=>{let[tx,k1,k2]=o.split(":");return `<button type="button" onclick="ansQ('${k1}','${k2}')" class="text-left p-3 rounded-lg border border-ink-200 dark:border-night-border hover:border-blue-500 text-xs sm:text-sm transition-colors">${tx}</button>`}).join("");
 b.innerHTML=`<div class="flex justify-between text-xs font-mono text-ink-500"><span>Вопрос ${qi+1} из ${QZ.length}</span><span>${Math.round(qi/QZ.length*100)}%</span></div><div class="font-bold text-sm sm:text-base text-ink-950 dark:text-white">${q[0]}</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${opts}</div>`;
 }
-function ansQ(k){qsc[k]++;qi++;renderQ()}
+function ansQ(k1,k2){qsc[k1]+=2;qsc[k2]+=1;qi++;renderQ()}
 function applyQ(kw){const i=document.getElementById("abit-search");i.value=kw;i.dispatchEvent(new Event("input"));document.getElementById("quiz-box").classList.add("hidden");setTimeout(()=>{const c=document.querySelector(".card:not(.hidden)");if(c)window.scrollTo({top:Math.max(0,c.getBoundingClientRect().top+window.pageYOffset-110),behavior:"smooth"})},50)}
 </script>
 </body>
