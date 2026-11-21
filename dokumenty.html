@@ -189,7 +189,7 @@
 <input type="text" id="searchInput" enterkeyhint="search" autocomplete="off" placeholder="Поиск по сайту, документам, специальностям..." class="flex-1 bg-transparent border-none outline-none text-sm text-ink-900 dark:text-white placeholder-ink-400 min-w-0">
 <button id="closeSearch" type="button" aria-label="Закрыть поиск" class="w-7 h-7 rounded-lg text-ink-400 hover:text-ink-900 dark:hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark text-base"></i></button>
 </div>
-<div id="searchResults" class="p-3 border-t border-ink-200 dark:border-night-border max-h-[65vh] overflow-y-auto text-sm bg-white dark:bg-night-surface"></div>
+<div id="searchResults" class="hidden p-3 border-t border-ink-200 dark:border-night-border max-h-[65vh] overflow-y-auto text-sm bg-white dark:bg-night-surface"></div>
 </div>
 </div>
 <script>
@@ -429,12 +429,11 @@ const searchData = [{"t":"Абитуриентам","u":"abiturientam.html","s":
 document.addEventListener('DOMContentLoaded', function() {
 var searchBtn = document.getElementById('searchBtn'), searchModal = document.getElementById('searchModal'), closeSearch = document.getElementById('closeSearch'), searchInput = document.getElementById('searchInput'), searchResults = document.getElementById('searchResults');
 if (!searchBtn || !searchModal) return;
-var chips = ['Расписание','Стипендии','15.02.16','Устав','ГИА','Общежитие'].map(function(w){return '<button type="button" data-q="'+w+'" class="px-2.5 py-1 rounded-md border border-ink-200 dark:border-night-border text-xs hover:border-blue-500 hover:text-blue-600 transition-colors">'+w+'</button>';}).join('');
-var emptyHtml = '<div class="space-y-3"><p class="text-xs text-ink-400">Популярные запросы:</p><div class="flex flex-wrap gap-1.5">'+chips+'</div></div>';
+var emptyHtml = '';
 function stem(w){ return w.length > 5 ? w.slice(0, -2) : w; }
 function runSearch(val){
 var q = val.toLowerCase().trim();
-if (q.length < 2) { searchResults.innerHTML = emptyHtml; return; }
+if (q.length < 2) { searchResults.innerHTML = ''; searchResults.classList.add('hidden'); return; } searchResults.classList.remove('hidden');
 var terms = q.split(/\s+/).map(stem);
 var res = (typeof searchData !== 'undefined' ? searchData : []).filter(function(p){
 var hay = (p.t + ' ' + p.s + ' ' + p.k).toLowerCase();
@@ -447,7 +446,7 @@ var hl = p.t.replace(rx, '<mark class="bg-blue-100 dark:bg-blue-900/60 text-blue
 return '<li><a href="' + p.u + '" class="block p-3 bg-ink-50 dark:bg-night-bg rounded-lg border border-ink-200 dark:border-night-border hover:border-blue-500 transition-colors"><span class="inline-block text-[10px] font-mono uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">' + p.s + '</span><div class="font-semibold text-ink-900 dark:text-white leading-snug">' + hl + '</div></a></li>';
 }).join('') + '</ul>';
 }
-searchResults.innerHTML = emptyHtml;
+
 searchResults.addEventListener('click', function(e){ var b = e.target.closest('[data-q]'); if(b){ searchInput.value = b.dataset.q; runSearch(searchInput.value); } });
 searchBtn.addEventListener('click', function(e){ e.preventDefault(); searchModal.classList.remove('hidden'); searchModal.classList.add('block'); searchInput.focus(); });
 if (closeSearch) closeSearch.addEventListener('click', function(){ searchModal.classList.add('hidden'); searchModal.classList.remove('block'); });
